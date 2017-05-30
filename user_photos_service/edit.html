@@ -1,0 +1,31 @@
+<form name="form">
+  <p>
+    <label for="firstname">First name: </label><input type="text" ng-model="firstname" disabled>
+    <ul ng-if="errors.firstname">
+      <li ng-repeat="x in errors.firstname">
+        {{x}}
+      </li>
+    </ul>
+  </p>
+  <p>
+    <label for="lastname">Last name: </label><input type="text" ng-model="lastname" disabled>
+    <ul ng-if="errors.lastname">
+      <li ng-repeat="x in errors.lastname">
+        {{x}}
+      </li>
+    </ul>  
+  </p>
+  <p>
+    <img src="http://localhost:3001/api/users/{{routeID}}/photo.image" />
+  </p>
+  <p>
+    <label for="caption">Caption: </label><input type="text" placeholder="Enter a caption (optional)" ng-model="caption">
+    <ul ng-if="errors.caption">
+      <li ng-repeat="x in errors.caption">
+        {{x}}
+      </li>
+    </ul>      
+  </p>
+  <p><input type="submit" value="Submit" ng-click="put()"><p>
+  <p><a href=".">Cancel</a></p>
+</form>

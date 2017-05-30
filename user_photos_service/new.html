@@ -1,0 +1,40 @@
+<form name="form">
+  <p>
+    <label for="firstname">First name: </label><input type="text" ng-model="firstname" disabled>
+    <ul ng-if="errors.firstname">
+      <li ng-repeat="x in errors.firstname">
+        {{x}}
+      </li>
+    </ul>
+  </p>
+  <p>
+    <label for="lastname">Last name: </label><input type="text" ng-model="lastname" disabled>
+    <ul ng-if="errors.lastname">
+      <li ng-repeat="x in errors.lastname">
+        {{x}}
+      </li>
+    </ul>  
+  </p>
+  <p>
+    <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+      ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+      ngf-resize="{width: 400, height: 400}">Select</div> 
+    <img ngf-thumbnail="file || '/thumb.jpg'">
+
+    <ul ng-if="errors.photo">
+      <li ng-repeat="x in errors.photo">
+        {{x}}
+      </li>
+    </ul>      
+  </p>
+  <p>
+    <label for="caption">Caption: </label><input type="text" placeholder="Enter a caption (optional)" ng-model="caption">
+    <ul ng-if="errors.caption">
+      <li ng-repeat="x in errors.caption">
+        {{x}}
+      </li>
+    </ul>      
+  </p>
+  <p><input type="submit" value="Submit" ng-click="submit()"><p>
+  <p><a href=".">Cancel</a></p>
+</form>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <base href="/users_service/">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+  </head>
+  <body>
+      <header>
+        <h1>Ryukyu Interactive Vietnam: {{hero}}</h1>
+        <p ng-if="login_status">{{login_status}}</p>
+        <p ng-if="flash_message">{{flash_message}}</p>
+      </header>
+      <nav>
+        <ul>
+          <li><a href=".">User Management Service</a></li>
+          <li><a href="/user_photos_service">User Photos Service</li>
+          <li ng-if="!loggedin_user"><a href="login">Log In</a></li>
+          <li ng-if="loggedin_user"><a href="logout">Log Out</a></li>
+        </ul>
+      </nav>
+
+      <main ng-view>
+
+      </main>
+
+      <script src="javascripts/config/routes.js"></script>
+      <script src="javascripts/controllers/list_controller.js"></script>
+      <script src="javascripts/controllers/show_controller.js"></script>
+      <script src="javascripts/controllers/new_controller.js"></script>
+      <script src="javascripts/controllers/edit_controller.js"></script>
+      <script src="javascripts/controllers/delete_controller.js"></script>
+      <script src="javascripts/controllers/login_controller.js"></script>
+      <script src="javascripts/controllers/logout_controller.js"></script>
+      <footer>
+          <small>Copyright Ryukyu Interactive Vietnam</small>
+      </footer>
+  </body>
+</html>

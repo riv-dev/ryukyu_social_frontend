@@ -1,0 +1,13 @@
+<h2>User Photo Microservice</h2>
+
+<table>
+    <tr ng-repeat="x in users">
+        <td>{{x.firstname}}</td>
+        <td>{{x.lastname}}</td>
+        <!--<td>{{x.email}}</td>-->
+        <td><a href="users/{{x.id}}/photo">Show</a></td>
+        <td ng-if="loggedin_user.admin || loggedin_user.id == x.id"><a href="users/{{x.id}}/photo/edit">Edit Photo</a></td>
+        <td ng-if="loggedin_user.admin || loggedin_user.id == x.id"><a href="users/{{x.id}}/photo/new">New Photo</a></td>
+        <td ng-if="loggedin_user.admin || loggedin_user.id == x.id"><a href="users/{{x.id}}/photo/delete">Delete</a></td>
+    </tr>
+</table>  

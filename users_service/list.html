@@ -1,0 +1,12 @@
+<p ng-if="loggedin_user.admin"><a href="users/new">Add User</a></p>
+<table>
+    <tr ng-repeat="x in users">
+        <td><em ng-if="loggedin_user.id == x.id">*</em>{{x.firstname}}</td>
+        <td>{{x.lastname}}</td>
+        <td>{{x.title}}</td>
+        <!--<td>{{x.email}}</td>-->
+        <td><a href="users/{{x.id}}">Show</a></td>
+        <td ng-if="loggedin_user.admin || loggedin_user.id == x.id"><a href="users/{{x.id}}/edit">Edit</a></td>
+        <td ng-if="loggedin_user.admin && loggedin_user.id != x.id"><a href="users/{{x.id}}/delete">Delete</a></td>
+    </tr>
+</table>             

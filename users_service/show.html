@@ -1,0 +1,8 @@
+<h2> {{user.firstname}} {{user.lastname}}</h2>
+<p> {{user.title}}</p>
+<p> {{user.email}}</p>
+<p> Admin: {{user.admin}}</p>
+<ul>
+    <li ng-if="loggedin_user.admin || loggedin_user.id == routeID"><a href="users/{{routeID}}/edit">Edit</a></li>
+    <li ng-if="loggedin_user.admin && loggedin_user.id != routeID"><a href="users/{{routeID}}/delete">Delete</a></li>
+</ul>
