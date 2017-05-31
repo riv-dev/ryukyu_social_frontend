@@ -15,7 +15,7 @@ app.controller('listController', function($scope, $http, $localStorage, CommonFu
             $scope.users = response.data;
         });
     } else {
-        $http.get("http://localhost:3000/api/users")
+        $http.get(userAPIBaseURL + "/users")
         .then(function (response) {
             $scope.users = response.data;
         });
