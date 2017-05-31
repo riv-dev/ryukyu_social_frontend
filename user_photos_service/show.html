@@ -1,5 +1,5 @@
 <h2> {{photo.firstname}} {{photo.lastname}}</h2>
-<img src="http://localhost:3001/api/users/{{routeID}}/photo.image" />
+<img src="http://ryukyu-user-photos-service.cleverword.com/api/users/{{routeID}}/photo.image" />
 <p>{{photo.caption}}</p>
 <ul>
     <li ng-if="loggedin_user.admin || loggedin_user.id == routeID"><a href="users/{{routeID}}/photo/edit">Edit</a></li>

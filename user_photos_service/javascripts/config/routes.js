@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ngRoute','ngStorage', 'ngFileUpload']);
-var userAPIBaseURL = "ryukyu-users-service.cleverword.com/api";
-var apiBaseURL = "ryukyu-user-photos-service.cleverword.com/api";
+var userAPIBaseURL = "http://ryukyu-users-service.cleverword.com/api";
+var apiBaseURL = "http://ryukyu-user-photos-service.cleverword.com/api";
 
 app.service('CommonFunctions', function() {
     function parseJwt (token) {
