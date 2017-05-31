@@ -1,5 +1,5 @@
 var app = angular.module('myApp', ['ngRoute','ngStorage']);
-var apiBaseURL = "http://ryukyu-users-service.cleverword.com/api";
+var apiBaseURL = "http://ryukyu-social.cleverword.com/users_service/api";
 
 app.service('CommonFunctions', function() {
     function parseJwt (token) {
