@@ -1,5 +1,7 @@
 var app = angular.module('myApp', ['ngRoute','ngStorage', 'ngFileUpload']);
+//var userAPIBaseURL = "http://localhost:5000";
 var userAPIBaseURL = "http://ryukyu-social.cleverword.com/users_service/api";
+//var apiBaseURL = "http://localhost:5001";
 var apiBaseURL = "http://ryukyu-social.cleverword.com/user_photos_service/api";
 
 app.service('CommonFunctions', function() {

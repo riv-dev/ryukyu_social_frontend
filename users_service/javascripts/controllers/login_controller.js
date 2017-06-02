@@ -10,7 +10,7 @@ app.controller('loginController', function($scope, $http, $location, $localStora
             data: {email: $scope.email, password: $scope.password}
         }).then(
             function successCallback(response) {
-                if(response.data.success) {
+                if(response.data.status == "success") {
                     $localStorage.flash_message = "Successful Login!";
                     $localStorage.token = response.data.token
                     $location.path('/');

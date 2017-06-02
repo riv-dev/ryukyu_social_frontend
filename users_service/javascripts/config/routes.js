@@ -1,4 +1,5 @@
 var app = angular.module('myApp', ['ngRoute','ngStorage']);
+//var apiBaseURL = "http://localhost:5000"; //local development
 var apiBaseURL = "http://ryukyu-social.cleverword.com/users_service/api";
 
 app.service('CommonFunctions', function() {
