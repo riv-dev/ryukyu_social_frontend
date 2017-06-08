@@ -67,7 +67,7 @@ export default class Show extends React.Component {
 						onChange={this.handleChange}
 					/>
 					<br />
-					<RaisedButton label="Cancel" style={style} />
+					<RaisedButton href="/" label="Cancel" style={style} />
     				<RaisedButton label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>

@@ -2,19 +2,33 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import Moment from 'react-moment';
 //import API
-import { sendRequest } from '../helpers';
+import { sendRequest, checkPermission } from '../helpers';
 import {ROOT_URL} from '../config/config';
+
+const style = {
+  margin: 12,
+};
 
 export default class Show extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
+			open: false,
 			project : [],
 			users: [],
 			project_id: props.match.params.project_id
 		}
 	}
+	// handleOpen = () => {
+	// 	this.setState({open: true});
+	// }
+
+	// handleClose = () => {
+	// 	this.setState({open: false});
+	// }
+
 	componentDidMount = () => {
 		var _self = this,
 			 url_project = ROOT_URL + 'projects/' + this.state.project_id,
@@ -26,23 +40,98 @@ export default class Show extends React.Component {
 			_self.setState({users: res});
 		});
 	}
-	renderAction = (permissions, user_id, project_id) => {
-		if(permissions === "0" || permissions === "1"){
+
+	/*actionremoveUser = (user_id) => {
+		return(
+			<div>
+				<FlatButton
+					label="Cancel"
+					primary={true}
+					onTouchTap={this.handleClose}
+				/>
+				<FlatButton
+					label="Confirm"
+					primary={true}
+					onTouchTap={this.removeUser(user_id)}
+				/>
+			</div>
+		)
+	}*/
+
+	removeUser = (user_id) => {
+		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + user_id;
+		sendRequest(url,'delete').then(function(res) {
+			console.log(res);
+		});
+	}
+
+	/*actionremoveProject = () => {
+		return(
+			<div>
+				<FlatButton
+					label="Cancel"
+					primary={true}
+					onTouchTap={this.handleClose}
+				/>
+				<FlatButton
+					label="Confirm"
+					primary={true}
+					onTouchTap={this.removeProject}
+				/>
+			</div>
+		)
+	}*/
+
+	removeProject = () => {
+		var url = ROOT_URL + 'projects/' + this.state.project_id;
+		sendRequest(url,'delete',{project_id: this.state.project_id}).then(function(res) {
+			console.log(res);
+		});
+	}
+
+	userAction = (user_id, project_id) => {
+		if(checkPermission() === 0 || checkPermission() === 1){
 			return (
-				<Link to={`/projects/${project_id}/users/${user_id}`}>User Detail</Link>
+				<Link style={style} to={`/projects/${project_id}/users/${user_id}`}>User Detail</Link>
 			)
-		}else if(permissions === "2"){
+		}else if(checkPermission() === 2){
 			return (
 				<div>
-					<Link to={`/projects/${project_id}/users/${user_id}`}>User Detail</Link>&nbsp;&nbsp;&nbsp;
-					<Link to={`/projects/${user_id}/edit`}>edit user permissions</Link>&nbsp;&nbsp;&nbsp;
-					<Link to={`/projects/${user_id}/edit`}>remove user</Link>
+					<Link style={style} to={`/projects/${project_id}/users/${user_id}`}>User Detail</Link>&nbsp;&nbsp;&nbsp;
+					<Link style={style} to={`/projects/${project_id}/users/${user_id}/edit`}>edit user permissions</Link>&nbsp;&nbsp;&nbsp;
+					<span style={style} onClick={() => {this.removeUser()}}>remove user</span>
+					
 				</div>
 			)
 		}
 	}
+
+	beRequest = () => {
+		if(checkPermission() >= 0){
+			return <Link style={style} to={`/projects/${this.state.project_id}/request`}>request to be added to this project</Link>
+		}
+	}
+
+	beEdit = () => {
+		if(checkPermission() >= 1){
+			return <Link style={style} to={`/projects/${this.state.project_id}/edit`}>edit project</Link>
+		}
+	}
+
+	beDelete = () => {
+		if(checkPermission() >= 2){
+			return (
+				<div>
+					<span style={style} onClick={() => {this.removeProject()}}>remove project</span>
+				</div>
+			)
+		}
+	}
+
 	render() {
 		const {project, users} = this.state;
+		let projectDeadline = project.deadline;
+		
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<div>
@@ -51,21 +140,29 @@ export default class Show extends React.Component {
 					<p>{project.value}</p>
 					<p>{project.effort}</p>
 					<p>{project.status}</p>
-					<p>{project.deadline}</p>
+					<Moment>{projectDeadline}</Moment>
 					<div>
-						List user of project:
-						<List>
-							{
-								users.map(user => {
-									return <ListItem key={user.user_id}>
-											<p>{user.user_id}</p>
-											<p>
-												{this.renderAction(user.write_access,user.user_id,project.id)}
-											</p>
-											</ListItem>
-								})
-							}
-						</List>
+						{users ? 
+						<div>
+							List user of project:
+							<List>
+								{
+									users.map((user, index) => {
+										return <ListItem key={index}>
+												<p>{user.user_id}</p>
+												{this.userAction(user.user_id,project.id)}
+												</ListItem>
+									})
+								}
+							</List>
+						</div>
+						: ''
+						}
+					</div>
+					<div>
+						{this.beRequest()}
+						{this.beEdit()}
+						{this.beDelete()}
 					</div>
 				</div>
 			</MuiThemeProvider>

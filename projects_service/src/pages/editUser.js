@@ -6,7 +6,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 //import API
-import { sendRequest } from '../helpers';
+import { sendRequest, checkPermission } from '../helpers';
 import {ROOT_URL,URL} from '../config/config';
 const styles = {
   errorStyle: {
@@ -39,39 +39,41 @@ export default class EditUser extends React.Component {
 		super(props);
 		this.state = {
 			project : [],
-			users: [],
-			user_detail: [],
+			user: [],
 			project_id: props.match.params.project_id,
 			user_id: props.match.params.user_id
 		}
 	}
 	componentDidMount = () => {
 		var _self = this;
-		const url_user = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id,
-			  url_user_detail = URL + 'users_service/api/users/' + this.state.user_id,
+		const url_user = URL + 'users_service/api/users/' + this.state.user_id,
 			  url_project = ROOT_URL + 'projects/' + this.state.project_id;
+
+		//Get user detail in project
 		sendRequest(url_user,'get').then(function(res) {
 			_self.setState({user: res});
 		});
-		if(this.state.user_detail.write_access === 2){
-			window.location = '/';
-		}
-		sendRequest(url_user_detail,'get').then(function(res) {
-			_self.setState({user_detail: res});
-		});
+
+		//Get project detail
 		sendRequest(url_project,'get').then(function(res) {
 			_self.setState({project: res});
 		});
 
+		//check privillage recent user
+		var permission = checkPermission(this.state.project_id);
+		
+		if(permission !== 2){
+			window.location = '/';
+		}
 	}
 	handleSubmit = (event) => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id;
 		var data = {
 			id: this.state.user.id,
-			status: this.state.status
+			status_code: this.state.status,
+			role: this.state.write_access
 		}
 		sendRequest(url,'put', data).then(function(res) {
-			console.log(res);
 			if(res.statusText !== 'error'){
 				console.log(res);
 			}
@@ -98,7 +100,8 @@ export default class EditUser extends React.Component {
 						/>
 					<br/><br/>
 					<TextField
-						defaultValue={this.state.user_detail.lastname}
+						defaultValue={this.state.user.lastname}
+						value={this.state.user.lastname}
 						floatingLabelText="User Name"
 						floatingLabelStyle={styles.floatingLabelStyle}
 						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -107,12 +110,12 @@ export default class EditUser extends React.Component {
 					<p>Status</p>
 					 <RadioButtonGroup name="status" defaultSelected="not_light" onChange={this.handleOptionChange}>
 						<RadioButton
-							value="Accept"
+							value="1"
 							label="Accept Request"
 							style={styles.radioButton}
 						/>
 						<RadioButton
-							value="Deny"
+							value="2"
 							label="Deny Request"
 							style={styles.radioButton}
 						/>
@@ -131,7 +134,7 @@ export default class EditUser extends React.Component {
 						label="Admin"
 						style={styles.checkbox}
 					/>
-					<RaisedButton label="Cancel" style={styles.button} />
+					<RaisedButton href="/" label="Cancel" style={styles.button} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />
 				
 				</div>

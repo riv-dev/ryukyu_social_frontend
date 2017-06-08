@@ -15,10 +15,19 @@ export default class New extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			project: []
+			project: [],
+			onActive: true,
+			error:'',
+			errorName:'',
+
 		}
 	}
 	handleChangeName = (event) => {
+		if (event.target.value !== '') {
+			this.setState({ errorName: '', onActive: false });
+		} else {
+			this.setState({ errorName: 'name can\'t be empty',onActive: true })
+		}
 		this.setState({
 			project_name: event.target.value
 		});
@@ -28,26 +37,52 @@ export default class New extends React.Component {
 			project_description: event.target.value
 		});
 	}
+	handleChangeValue = (event) => {
+		this.setState({
+			project_value: event.target.value
+		});
+	}
+	handleChangeEffort = (event) => {
+		this.setState({
+			project_effort: event.target.value
+		});
+	}
+	handleChangeDeadline = (event) => {
+		this.setState({
+			project_deadline: event.target.value
+		});
+	}
+	handleChangeStatus = (event) => {
+		this.setState({
+			project_status: event.target.value
+		});
+	}
 	handleSubmit = (event) => {
-		console.log(this.state.project_name);
+		var _self = this;
 		var project = {
 			name: this.state.project_name,
+			description: this.state.project_description,
 			value: this.state.project_value,
 			effort: this.state.project_effort,
 			status: this.state.project_status,
 			deadline: this.state.project_deadline
 		}
+		
 		sendRequest(url,'post', project).then(function(res) {
-			window.location = '/';
+			_self.setState({error: res.message});
+			console.log(res);
+			// window.location = '/';
 		});
 	}
 	render() {
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<div>
+					<p>{this.state.error}</p>
 					<TextField hintText="Projectname"
 						value={this.state.project_name}
 						onChange={this.handleChangeName}
+						errorText= {this.state.errorName}
 					/>
 					<br />
 					<TextField
@@ -56,15 +91,16 @@ export default class New extends React.Component {
 						multiLine={true}
 						rows={2}
 						rowsMax={4}
+						onChange={this.handleChangeDescription}
 					/><br />
 					<TextField hintText="value"
 						value={this.state.project_value}
-						onChange={this.handleChange}
+						onChange={this.handleChangeValue}
 					/>
 					<br />
 					<TextField hintText="effort"
 						value={this.state.project_effort}
-						onChange={this.handleChange}
+						onChange={this.handleChangeEffort}
 					/>
 					<br />
 					<TextField hintText="status"
@@ -74,11 +110,11 @@ export default class New extends React.Component {
 					<br />
 					<TextField hintText="deadline"
 						value={this.state.project_deadline}
-						onChange={this.handleChange}
+						onChange={this.handleChangeDeadline}
 					/>
 					<br />
-					<RaisedButton label="Cancel" style={style} />
-    				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
+					<RaisedButton href='/' label="Cancel" style={style} />
+    				<RaisedButton disabled={this.state.onActive} onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>
 		)

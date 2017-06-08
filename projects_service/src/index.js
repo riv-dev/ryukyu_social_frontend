@@ -45,8 +45,8 @@ ReactDOM.render(
 	  <div>
 		<Route path='/' component={App} />
 		<Route exact path='/' component={ListProject} />
-		<Route exact path='/projects/new' component={New} />
 		<Route exact path='/projects/:project_id' component={Show} />
+		<Route exact path='/new' component={New} />
 		<Route exact path='/projects/:project_id/edit' component={Edit} />
 		<Route exact path='/projects/:project_id/users/:user_id' component={ShowUser} />
 		<Route exact path='/projects/:project_id/users/:user_id/edit' component={EditUser} />

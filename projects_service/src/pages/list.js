@@ -3,9 +3,13 @@ import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 //import API
-import { sendRequest } from '../helpers';
+import { sendRequest, getTokenKey, checkPermission } from '../helpers';
 import {ROOT_URL} from '../config/config';
 const url = ROOT_URL + 'projects';
+
+const style = {
+  margin: 12,
+};
 
 export default class ListProject extends React.Component {
 	constructor(props){
@@ -15,28 +19,60 @@ export default class ListProject extends React.Component {
 			projects : []
 		}
 	}
-	componentDidMount(){
+	componentDidMount = () => {
+		if(!getTokenKey()){
+			return;
+		}
 		var _self = this;
 		sendRequest(url,'get').then(function(res) {
 			_self.setState({projects: res});
 		});
 	}
+
+	beDetail = (project_id) => {
+		var permission = checkPermission();
+		if(permission >= 0){
+			return <Link style={style} to={`/projects/${project_id}`}>Detail</Link>
+		}
+	}
+	beEdit = (project_id) => {
+		var permission = checkPermission();
+		if(permission >= 1){
+			return <Link style={style} to={`/projects/${project_id}/edit`}>Edit</Link>
+		}
+	}
+	beDelete = (project_id) => {
+		var permission = checkPermission();
+		if(permission >= 2){
+			return <span style={style} onClick={() => {this.removeProject()}}>remove project</span>
+		}
+	}
+	removeProject = () => {
+		var url = ROOT_URL + 'projects/' + this.state.project_id;
+		sendRequest(url,'delete',{project_id: this.state.project_id}).then(function(res) {
+			console.log(res);
+		});
+	}
 	render() {
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
-			<List>
-				{
-					this.state.projects.map(project => {
-						return <ListItem key={project.id} >
-									<p>{project.name}</p>
-									<p>
-										<Link to={`/projects/${project.id}`}>Detail</Link>&nbsp;&nbsp;&nbsp;
-										<Link to={`/projects/${project.id}/edit`}>Edit</Link>
-									</p>
-								</ListItem>
-					})
-				}
-			</List>
+				<div>
+					<List>
+						{
+							this.state.projects.map(project => {
+								return <ListItem key={project.id} >
+											<p>{project.name}</p>
+											<p>
+												{this.beDetail(project.id)}
+												{this.beEdit(project.id)}
+												{this.beDelete(project.id)}
+											</p>
+										</ListItem>
+							})
+						}
+					</List>
+					<Link to={`/new`}>Add new project</Link>
+				</div>
 			</MuiThemeProvider>
 		)
 	}
