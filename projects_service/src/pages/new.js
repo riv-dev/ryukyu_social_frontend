@@ -88,9 +88,12 @@ export default class New extends React.Component {
 		}
 		
 		sendRequest(url,'post', project).then(function(res) {
-			_self.setState({error: res.message});
-			console.log(res);
-			// window.location = '/';
+			_self.setState({flashmessage:res.message});
+			if(res.status === "success"){
+				setTimeout(function(){
+					window.location = '/projects/' + res.project_id
+				},1000)
+			}
 		});
 	}
 	render() {

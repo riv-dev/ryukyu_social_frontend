@@ -111,8 +111,8 @@ export default class Show extends React.Component {
 			deadline: _self.formatDate(this.state.project_deadline)
 		}
 		sendRequest(url,'put', project).then(function(res) {
+			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
-				_self.setState({flashmessage:res.message});
 				setTimeout(function(){
 					window.location = '/projects/' + res.project_id
 				},1000)

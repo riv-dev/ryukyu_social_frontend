@@ -69,10 +69,9 @@ export default class EditUser extends React.Component {
 		//get user in project
 		sendRequest(url_user_project,'get').then(function(res) {
 			_self.setState({
-				status_code: res.status_code ? res.status_code : '',
-				write_access: res.write_access ? res.write_access : ''
+				status_code: res.status_code ? res.status_code.toString() : '',
+				write_access: res.write_access ? res.status_code.toString() : ''
 			});
-			console.log(_self.state.status_code);
 		});
 
 		//check privillage recent user
@@ -90,14 +89,11 @@ export default class EditUser extends React.Component {
 			write_access: this.state.write_access ? parseInt(this.state.write_access,10) : 0
 		}
 		sendRequest(url,'put', data).then(function(res) {
-			if(res.status === 'success'){
-				_self.setState({flashMessage: res.message});
+			_self.setState({flashmessage:res.message});
+			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + res.project_id;
+					window.location = '/projects/' + res.project_id
 				},1000)
-			}
-			else{
-				_self.setState({flashMessage: res.message});
 			}
 		});
 	}
@@ -134,7 +130,7 @@ export default class EditUser extends React.Component {
 						/>
 					<br/><br/>
 					<p>Status</p>
-					 <RadioButtonGroup name="status" defaultSelected={this.state.status_code} onChange={this.handleOptionChange}>
+					 <RadioButtonGroup name="status_code" valueSelected={this.state.status_code}  onChange={this.handleOptionChange}>
 						<RadioButton
 							value="1"
 							label="Accept Request"

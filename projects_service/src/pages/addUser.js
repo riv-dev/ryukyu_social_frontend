@@ -56,8 +56,8 @@ export default class AddUser extends React.Component {
 				user_id : this.state.user_id
 			};	
 		sendRequest(url,'post', data).then(function(res) {
+			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
-				_self.setState({flashmessage:res.message});
 				setTimeout(function(){
 					window.location = '/projects/' + res.project_id
 				},1000)
