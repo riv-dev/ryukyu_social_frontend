@@ -87,6 +87,11 @@ export default class EditUser extends React.Component {
 			status: event.target.value
 		});
 	}
+
+	handleCheck = (event) => {
+
+	}
+	
 	render(){
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -123,6 +128,7 @@ export default class EditUser extends React.Component {
 					<br/><br/>
 					<p>Access</p>
 					<Checkbox
+						onCheck={this.handleCheck}
 						label="Read"
 						style={styles.checkbox}
 					/>

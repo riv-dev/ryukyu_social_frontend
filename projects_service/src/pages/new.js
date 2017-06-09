@@ -19,7 +19,12 @@ export default class New extends React.Component {
 			onActive: true,
 			error:'',
 			errorName:'',
-
+			project_name:'',
+			project_description:'',
+			project_value:'',
+			project_effort:'',
+			project_status:'',
+			project_deadline:''
 		}
 	}
 	handleChangeName = (event) => {

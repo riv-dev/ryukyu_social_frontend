@@ -44,13 +44,13 @@ export default class ListProject extends React.Component {
 	beDelete = (project_id) => {
 		var permission = checkPermission();
 		if(permission >= 2){
-			return <span style={style} onClick={() => {this.removeProject()}}>remove project</span>
+			return <span style={style} onClick={() => {this.removeProject(project_id)}}>remove project</span>
 		}
 	}
-	removeProject = () => {
-		var url = ROOT_URL + 'projects/' + this.state.project_id;
-		sendRequest(url,'delete',{project_id: this.state.project_id}).then(function(res) {
-			console.log(res);
+	removeProject = (project_id) => {
+		var url = ROOT_URL + 'projects/' + project_id;
+		sendRequest(url,'delete').then(function(res) {
+			window.reload();
 		});
 	}
 	render() {

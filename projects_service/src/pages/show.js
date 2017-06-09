@@ -121,9 +121,8 @@ export default class Show extends React.Component {
 	beDelete = () => {
 		if(checkPermission() >= 2){
 			return (
-				<div>
-					<span style={style} onClick={() => {this.removeProject()}}>remove project</span>
-				</div>
+				<span style={style} onClick={() => {this.removeProject()}}>remove project</span>
+				
 			)
 		}
 	}
@@ -149,7 +148,7 @@ export default class Show extends React.Component {
 								{
 									users.map((user, index) => {
 										return <ListItem key={index}>
-												<p>{user.user_id}</p>
+												<p>{user.firstname} {user.lastname}</p>
 												{this.userAction(user.user_id,project.id)}
 												</ListItem>
 									})

@@ -2,7 +2,7 @@ import $ from 'jquery';
 import {ROOT_URL} from './config/config';
 
 const TOKEN_KEY = '_wToken';
-localStorage.setItem('_wToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk2ODk1NDE0LCJleHAiOjE0OTY5MjQyMTR9.LkUU714lcQhdcQ-z5op64geDhOVbN-eRjtn8l6QvoK0')
+localStorage.setItem('_wToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk2OTcxNTMwLCJleHAiOjE0OTcwMDAzMzB9.Tk2d4qn4DNXCH09Ef93wnQRvFXXasqspyo93AODUnkU')
 
 export function getTokenKey() {
   	return localStorage.getItem(TOKEN_KEY);
@@ -83,9 +83,8 @@ export function sendRequest(url, method, data = null) {
 					return data;
 				},
 				error: function(xhr, status, error) {
-					console.log(xhr.responseText)
-					// var err = JSON.parse(xhr.responseText);
-					// return err;
+					var err = JSON.parse(xhr.responseText);
+					return err;
 				}
 			});		
     default:
