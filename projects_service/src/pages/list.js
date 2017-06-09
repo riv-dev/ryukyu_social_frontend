@@ -47,12 +47,24 @@ export default class ListProject extends React.Component {
 			return <span style={style} onClick={() => {this.removeProject(project_id)}}>remove project</span>
 		}
 	}
+
 	removeProject = (project_id) => {
-		var url = ROOT_URL + 'projects/' + project_id;
+		var url = ROOT_URL + 'projects/' + project_id,
+			_self = this;
 		sendRequest(url,'delete').then(function(res) {
-			window.reload();
+			_self.removeProjectInList(project_id)
 		});
 	}
+
+	removeProjectInList = (project_id) => {
+		var array = this.state.projects.filter(function(item) {
+			return item.id !== project_id
+		});
+		this.setState({
+			projects: array
+		})
+	}
+
 	render() {
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>

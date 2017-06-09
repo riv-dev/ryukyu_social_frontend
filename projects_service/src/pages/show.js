@@ -2,9 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
-import Moment from 'react-moment';
 //import API
-import { sendRequest, checkPermission } from '../helpers';
+import { sendRequest, checkPermission, formatDate } from '../helpers';
 import {ROOT_URL} from '../config/config';
 
 const style = {
@@ -21,13 +20,6 @@ export default class Show extends React.Component {
 			project_id: props.match.params.project_id
 		}
 	}
-	// handleOpen = () => {
-	// 	this.setState({open: true});
-	// }
-
-	// handleClose = () => {
-	// 	this.setState({open: false});
-	// }
 
 	componentDidMount = () => {
 		var _self = this,
@@ -41,51 +33,27 @@ export default class Show extends React.Component {
 		});
 	}
 
-	/*actionremoveUser = (user_id) => {
-		return(
-			<div>
-				<FlatButton
-					label="Cancel"
-					primary={true}
-					onTouchTap={this.handleClose}
-				/>
-				<FlatButton
-					label="Confirm"
-					primary={true}
-					onTouchTap={this.removeUser(user_id)}
-				/>
-			</div>
-		)
-	}*/
-
 	removeUser = (user_id) => {
-		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + user_id;
+		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + user_id,
+			_self = this;
 		sendRequest(url,'delete').then(function(res) {
-			console.log(res);
+			_self.removeUserInList(user_id);
 		});
 	}
 
-	/*actionremoveProject = () => {
-		return(
-			<div>
-				<FlatButton
-					label="Cancel"
-					primary={true}
-					onTouchTap={this.handleClose}
-				/>
-				<FlatButton
-					label="Confirm"
-					primary={true}
-					onTouchTap={this.removeProject}
-				/>
-			</div>
-		)
-	}*/
+	removeUserInList = (user_id) => {
+		var array = this.state.users.filter(function(item) {
+			return item.user_id !== user_id
+		});
+		this.setState({
+			users: array
+		})
+	}
 
 	removeProject = () => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id;
-		sendRequest(url,'delete',{project_id: this.state.project_id}).then(function(res) {
-			console.log(res);
+		sendRequest(url,'delete').then(function(res) {
+			window.location = '/';
 		});
 	}
 
@@ -99,16 +67,16 @@ export default class Show extends React.Component {
 				<div>
 					<Link style={style} to={`/projects/${project_id}/users/${user_id}`}>User Detail</Link>&nbsp;&nbsp;&nbsp;
 					<Link style={style} to={`/projects/${project_id}/users/${user_id}/edit`}>edit user permissions</Link>&nbsp;&nbsp;&nbsp;
-					<span style={style} onClick={() => {this.removeUser()}}>remove user</span>
+					<span style={style} onClick={() => {this.removeUser(user_id)}}>remove user</span>
 					
 				</div>
 			)
 		}
 	}
 
-	beRequest = () => {
-		if(checkPermission() >= 0){
-			return <Link style={style} to={`/projects/${this.state.project_id}/request`}>request to be added to this project</Link>
+	beAddUser = () => {
+		if(checkPermission() >= 2){
+			return <Link style={style} to={`/projects/${this.state.project_id}/addUser`}>Add Users</Link>
 		}
 	}
 
@@ -121,25 +89,24 @@ export default class Show extends React.Component {
 	beDelete = () => {
 		if(checkPermission() >= 2){
 			return (
-				<span style={style} onClick={() => {this.removeProject()}}>remove project</span>
-				
+				<span style={style} onClick={() => {this.removeProject()}}>remove project</span>	
 			)
 		}
 	}
 
 	render() {
 		const {project, users} = this.state;
-		let projectDeadline = project.deadline;
+		let projectDeadline = new Date(project.deadline);
 		
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<div>
-					<p>{project.name}</p>
-					<p>{project.description}</p>
-					<p>{project.value}</p>
-					<p>{project.effort}</p>
-					<p>{project.status}</p>
-					<Moment>{projectDeadline}</Moment>
+					<p>Project name: {project.name}</p>
+					<p>description: {project.description}</p>
+					<p>value: {project.value}</p>
+					<p>effort: {project.effort}</p>
+					<p>status: {project.status}</p>
+					<p>Deadline: {formatDate(projectDeadline)}</p>
 					<div>
 						{users ? 
 						<div>
@@ -159,7 +126,7 @@ export default class Show extends React.Component {
 						}
 					</div>
 					<div>
-						{this.beRequest()}
+						{this.beAddUser()}
 						{this.beEdit()}
 						{this.beDelete()}
 					</div>

@@ -2,15 +2,29 @@ import React from 'react';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import {orange500, blue500} from 'material-ui/styles/colors';
 
-import { sendRequest } from '../helpers';
 //import API
+import { sendRequest } from '../helpers';
 import {ROOT_URL} from '../config/config';
 const url = ROOT_URL + 'projects';
 const style = {
   margin: 12
 };
-
+const styles = {
+	errorStyle: {
+		color: orange500,
+	},
+	underlineStyle: {
+		borderColor: orange500,
+	},
+	floatingLabelStyle: {
+		color: orange500,
+	},
+	floatingLabelFocusStyle: {
+		color: blue500,
+	},
+}
 export default class New extends React.Component {
 	constructor(props){
 		super(props);
@@ -84,38 +98,55 @@ export default class New extends React.Component {
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<div>
 					<p>{this.state.error}</p>
-					<TextField hintText="Projectname"
+					<TextField
 						value={this.state.project_name}
 						onChange={this.handleChangeName}
 						errorText= {this.state.errorName}
+						floatingLabelText="Project Name"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
 					<TextField
-						hintText="Description"
 						value={this.state.project_description}
 						multiLine={true}
 						rows={2}
 						rowsMax={4}
 						onChange={this.handleChangeDescription}
+						floatingLabelText="Description"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/><br />
-					<TextField hintText="value"
+					<TextField
 						value={this.state.project_value}
 						onChange={this.handleChangeValue}
+						floatingLabelText="value"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
-					<TextField hintText="effort"
+					<TextField
 						value={this.state.project_effort}
 						onChange={this.handleChangeEffort}
+						floatingLabelText="effort"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
-					<TextField hintText="status"
+					<TextField
 						value={this.state.project_status}
 						onChange={this.handleChange}
+						floatingLabelText="status"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
-					<TextField hintText="deadline"
+					<TextField
 						value={this.state.project_deadline}
 						onChange={this.handleChangeDeadline}
+						floatingLabelText="deadline"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
 					<RaisedButton href='/' label="Cancel" style={style} />

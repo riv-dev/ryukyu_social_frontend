@@ -17,7 +17,8 @@ import Show from './pages/show';
 import Edit from './pages/edit';
 import ShowUser from './pages/showUser';
 import New from './pages/new';
-import EditUser from './pages/editUser'
+import EditUser from './pages/editUser';
+import AddUser from './pages/addUser';
 
 const Header = () => (
   <AppBar
@@ -48,6 +49,7 @@ ReactDOM.render(
 		<Route exact path='/projects/:project_id' component={Show} />
 		<Route exact path='/new' component={New} />
 		<Route exact path='/projects/:project_id/edit' component={Edit} />
+		<Route exact path='/projects/:project_id/addUser' component={AddUser} />
 		<Route exact path='/projects/:project_id/users/:user_id' component={ShowUser} />
 		<Route exact path='/projects/:project_id/users/:user_id/edit' component={EditUser} />
 	</div>

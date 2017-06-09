@@ -3,7 +3,6 @@ import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 //import API
 import { sendRequest, checkPermission } from '../helpers';
@@ -39,7 +38,11 @@ export default class EditUser extends React.Component {
 		super(props);
 		this.state = {
 			project : [],
-			user: [],
+			user_name:'',
+			project_name:'',
+			status_code:'',
+			write_access:'',
+			flashMessage:'',
 			project_id: props.match.params.project_id,
 			user_id: props.match.params.user_id
 		}
@@ -47,16 +50,29 @@ export default class EditUser extends React.Component {
 	componentDidMount = () => {
 		var _self = this;
 		const url_user = URL + 'users_service/api/users/' + this.state.user_id,
-			  url_project = ROOT_URL + 'projects/' + this.state.project_id;
+			  url_project = ROOT_URL + 'projects/' + this.state.project_id,
+			  url_user_project = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id;
 
 		//Get user detail in project
-		sendRequest(url_user,'get').then(function(res) {
-			_self.setState({user: res});
+		sendRequest(url_user,'get').then(function(res) {			
+			_self.setState({user_name: res.firstname + " " + res.lastname});
 		});
 
 		//Get project detail
 		sendRequest(url_project,'get').then(function(res) {
-			_self.setState({project: res});
+			_self.setState({
+				project: res,
+				project_name: res.name ? res.name : ''
+			});
+		});
+
+		//get user in project
+		sendRequest(url_user_project,'get').then(function(res) {
+			_self.setState({
+				status_code: res.status_code ? res.status_code : '',
+				write_access: res.write_access ? res.write_access : ''
+			});
+			console.log(_self.state.status_code);
 		});
 
 		//check privillage recent user
@@ -67,53 +83,58 @@ export default class EditUser extends React.Component {
 		}
 	}
 	handleSubmit = (event) => {
-		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id;
+		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id,
+			_self = this;
 		var data = {
-			id: this.state.user.id,
-			status_code: this.state.status,
-			role: this.state.write_access
+			status_code: this.state.status_code ? parseInt(this.state.status_code,10) : 0,
+			write_access: this.state.write_access ? parseInt(this.state.write_access,10) : 0
 		}
 		sendRequest(url,'put', data).then(function(res) {
-			if(res.statusText !== 'error'){
-				console.log(res);
+			if(res.status === 'success'){
+				_self.setState({flashMessage: res.message});
+				setTimeout(function(){
+					window.location = '/projects/' + res.project_id;
+				},1000)
 			}
 			else{
-				console.log(res.responseText);
+				_self.setState({flashMessage: res.message});
 			}
 		});
 	}
 	handleOptionChange = (event) => {
 		this.setState({
-			status: event.target.value
+			status_code: event.target.value
 		});
 	}
 
-	handleCheck = (event) => {
-
+	handleWriteAccess = (event) =>{
+		this.setState({
+			write_access: event.target.value
+		});
 	}
-	
 	render(){
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
 				<div>
+					<p>{this.state.flashMessage}</p>
 					<TextField
-						defaultValue={this.state.project.name}
-						value={this.state.project.name}
+						value={this.state.project_name}
+						disabled={true}
 						floatingLabelText="Project Name"
 						floatingLabelStyle={styles.floatingLabelStyle}
 						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 						/>
 					<br/><br/>
 					<TextField
-						defaultValue={this.state.user.lastname}
-						value={this.state.user.lastname}
+						value={this.state.user_name}
+						disabled={true}
 						floatingLabelText="User Name"
 						floatingLabelStyle={styles.floatingLabelStyle}
 						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 						/>
 					<br/><br/>
 					<p>Status</p>
-					 <RadioButtonGroup name="status" defaultSelected="not_light" onChange={this.handleOptionChange}>
+					 <RadioButtonGroup name="status" defaultSelected={this.state.status_code} onChange={this.handleOptionChange}>
 						<RadioButton
 							value="1"
 							label="Accept Request"
@@ -126,20 +147,14 @@ export default class EditUser extends React.Component {
 						/>
 					</RadioButtonGroup>
 					<br/><br/>
-					<p>Access</p>
-					<Checkbox
-						onCheck={this.handleCheck}
-						label="Read"
-						style={styles.checkbox}
+					<TextField
+						value={this.state.write_access}
+						floatingLabelText="Write Access"
+						floatingLabelStyle={styles.floatingLabelStyle}
+						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+						onChange={this.handleWriteAccess}
 					/>
-					<Checkbox
-						label="Write"
-						style={styles.checkbox}
-					/>
-					<Checkbox
-						label="Admin"
-						style={styles.checkbox}
-					/>
+					<br/><br/>
 					<RaisedButton href="/" label="Cancel" style={styles.button} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />
 				
