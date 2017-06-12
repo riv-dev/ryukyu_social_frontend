@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import {ROOT_URL} from './config/config';
 
-const TOKEN_KEY = '_wToken';
-localStorage.setItem('_wToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3MjI5NTIzLCJleHAiOjE0OTcyNTgzMjN9.qC1fEV-x17F3QxOCHwYGPGFm-5lcrvEW6jGfRXNdQDU')
+const TOKEN_KEY = 'token';
+localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3MjI5NTIzLCJleHAiOjE0OTcyNTgzMjN9.qC1fEV-x17F3QxOCHwYGPGFm-5lcrvEW6jGfRXNdQDU')
 
 export function getTokenKey() {
   	return localStorage.getItem(TOKEN_KEY);
@@ -119,6 +119,7 @@ export function formatDate(date) {
 	var strTime = hours + ':' + minutes + ' ' + ampm;
 	return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
 }
+
 
 
 function parseJwt (token) {

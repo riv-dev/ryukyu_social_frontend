@@ -37,18 +37,39 @@ export default class AddUser extends React.Component {
 	}
 	componentDidMount = () => {
 		var url = URL + 'users_service/api/users',
-			_self = this;
+			url_user_prj = ROOT_URL + 'projects/' + this.state.project_id + '/users',
+			_self = this,
+			user_in_project = [];
+		
+		//GET ALL USERS
 		sendRequest(url,'get').then(function(res) {
-			 var users = [];
+			var users = [];
 			for(var i=0; i<res.length;i++){
 				users.push({
 					text: res[i].firstname + " " + res[i].lastname,
 					value: res[i].id
-				})
+				});
 			}
-			_self.setState({users:users});
+			//GET USERS IN PROJECT
+			sendRequest(url_user_prj,'get').then(function(res) {
+				user_in_project = res;
+				for(var j=0; j<user_in_project.length;j++){
+					var array = _self.removeItem(users,user_in_project[j].id); // REMOVE USER ALREADY EXIST
+					users = array;
+				}
+				_self.setState({users:users});
+			});
+			
 		});
 	}
+
+	removeItem = (arrDes, filterValue) => {
+		var array = arrDes.filter(function(item) { 
+			return item.value !== filterValue
+		});
+		return array;
+	}
+
 	handleSubmit = () => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users',
 			_self = this,

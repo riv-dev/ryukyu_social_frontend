@@ -53,7 +53,7 @@ export default class Show extends React.Component {
 	removeProject = () => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id;
 		sendRequest(url,'delete').then(function(res) {
-			window.location = '/';
+			window.location = '/'
 		});
 	}
 
