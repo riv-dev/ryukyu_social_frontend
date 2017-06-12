@@ -59,7 +59,7 @@ export default class AddUser extends React.Component {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + res.project_id
+					window.location = '/projects/' + _self.state.project_id + '/users/' + _self.state.user_id;
 				},1000)
 			}
 		});
@@ -79,7 +79,7 @@ export default class AddUser extends React.Component {
 						onNewRequest={this.handleNewRequest}
 					/>
 					<br />
-					<RaisedButton href="/" label="Cancel" style={style} />
+					<RaisedButton href={"/projects/" + this.state.project_id} label="Cancel" style={style} />
     				<RaisedButton onTouchTap={this.handleSubmit} disabled={this.state.onActive} label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>

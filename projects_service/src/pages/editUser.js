@@ -151,7 +151,7 @@ export default class EditUser extends React.Component {
 						onChange={this.handleWriteAccess}
 					/>
 					<br/><br/>
-					<RaisedButton href="/" label="Cancel" style={styles.button} />
+					<RaisedButton href={"/projects/" + this.state.project_id + "/users/" + this.state.user_id} label="Cancel" style={styles.button} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />
 				
 				</div>

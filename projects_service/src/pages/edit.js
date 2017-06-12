@@ -173,7 +173,7 @@ export default class Show extends React.Component {
 						autoOk={true}
 					/>
 					<br />
-					<RaisedButton href="/" label="Cancel" style={style} />
+					<RaisedButton href={"/projects/" + this.state.project_id} label="Cancel" style={style} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>
