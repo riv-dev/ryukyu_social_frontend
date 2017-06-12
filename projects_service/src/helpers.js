@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import {ROOT_URL} from './config/config';
+import {ROOT_URL,STATUS_PROJECT} from './config/config';
 
 const TOKEN_KEY = 'token';
-localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3MjI5NTIzLCJleHAiOjE0OTcyNTgzMjN9.qC1fEV-x17F3QxOCHwYGPGFm-5lcrvEW6jGfRXNdQDU')
+localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3MjU4NzUyLCJleHAiOjE0OTcyODc1NTJ9.0sQa0MCFQoPUUYWQv2dL3p2eisrSZ8dUrOjfPO4Zj74')
 
 export function getTokenKey() {
   	return localStorage.getItem(TOKEN_KEY);
@@ -120,7 +120,16 @@ export function formatDate(date) {
 	return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
 }
 
-
+export function showStatus(status_code){
+	var status = '';
+	STATUS_PROJECT.filter(function(item) { 
+		if(item.value === status_code){
+			status =  item.text;
+		}
+		return true;
+	});
+	return status;
+}
 
 function parseJwt (token) {
 	var base64Url = token.split('.')[1];

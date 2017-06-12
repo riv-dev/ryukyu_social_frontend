@@ -3,10 +3,12 @@ import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
-
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
 //import API
 import { sendRequest } from '../helpers';
-import {ROOT_URL} from '../config/config';
+import {ROOT_URL,STATUS_PROJECT} from '../config/config';
 const url = ROOT_URL + 'projects';
 const style = {
   margin: 12
@@ -28,6 +30,10 @@ const styles = {
 export default class New extends React.Component {
 	constructor(props){
 		super(props);
+
+		const defaultDate = new Date();
+		defaultDate.setFullYear(defaultDate.getFullYear() - 1);
+
 		this.state = {
 			project: [],
 			onActive: true,
@@ -38,7 +44,8 @@ export default class New extends React.Component {
 			project_value:'',
 			project_effort:'',
 			project_status:'',
-			project_deadline:''
+			project_deadline:defaultDate,
+			project_startdate:defaultDate
 		}
 	}
 	handleChangeName = (event) => {
@@ -66,25 +73,36 @@ export default class New extends React.Component {
 			project_effort: event.target.value
 		});
 	}
-	handleChangeDeadline = (event) => {
+	handleChangeDeadline = (event, date) => {
 		this.setState({
-			project_deadline: event.target.value
+			project_deadline: date
 		});
 	}
-	handleChangeStatus = (event) => {
+
+	handleChangeStartDate = (event, date) => {
 		this.setState({
-			project_status: event.target.value
+			project_startdate: date
 		});
+	}
+
+	handleChangeStatus = (event, index, value) => {
+		this.setState({
+			project_status: value
+		});
+	}
+	formatDate = (date) => {
+		return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 	handleSubmit = (event) => {
 		var _self = this;
 		var project = {
 			name: this.state.project_name,
 			description: this.state.project_description,
-			value: this.state.project_value,
-			effort: this.state.project_effort,
-			status: this.state.project_status,
-			deadline: this.state.project_deadline
+			value: this.state.project_value ? parseInt(this.state.project_value, 10) : 0,
+			effort: this.state.project_effort ? parseInt(this.state.project_effort, 10) : 0,
+			status_code: this.state.project_status ? parseInt(this.state.project_status, 10) : 0,
+			deadline: _self.formatDate(this.state.project_deadline),
+			start_date: _self.formatDate(this.state.project_startdate)
 		}
 		
 		sendRequest(url,'post', project).then(function(res) {
@@ -136,20 +154,31 @@ export default class New extends React.Component {
 						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
-					<TextField
-						value={this.state.project_status}
-						onChange={this.handleChange}
+					 <SelectField
 						floatingLabelText="status"
-						floatingLabelStyle={styles.floatingLabelStyle}
-						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+						value={this.state.project_status}
+						onChange={this.handleChangeStatus}
+						>
+						{
+							STATUS_PROJECT.map((status, index) => {
+								return <MenuItem key={index} value={status.value} primaryText={status.text}>
+										</MenuItem>
+							})
+						}
+					</SelectField>
+					<br />
+					<DatePicker
+						value={this.state.project_startdate}
+						hintText="Start Date"
+						onChange={this.handleChangeStartDate}
+						autoOk={true}
 					/>
 					<br />
-					<TextField
+					<DatePicker
 						value={this.state.project_deadline}
+						hintText="Deadline"
 						onChange={this.handleChangeDeadline}
-						floatingLabelText="deadline"
-						floatingLabelStyle={styles.floatingLabelStyle}
-						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+						autoOk={true}
 					/>
 					<br />
 					<RaisedButton href='/' label="Cancel" style={style} />

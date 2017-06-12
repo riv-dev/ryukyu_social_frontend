@@ -6,7 +6,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 //import API
 import { sendRequest, checkPermission } from '../helpers';
-import {ROOT_URL,URL} from '../config/config';
+import {ROOT_URL,URL,STATUS_USER_PROJECT, WRITE_ACCESS} from '../config/config';
 const styles = {
   errorStyle: {
     color: orange500,
@@ -69,8 +69,8 @@ export default class EditUser extends React.Component {
 		//get user in project
 		sendRequest(url_user_project,'get').then(function(res) {
 			_self.setState({
-				status_code: res.status_code ? res.status_code.toString() : '',
-				write_access: res.write_access ? res.status_code.toString() : ''
+				status_code: res.status_code ? res.status_code : 0,
+				write_access: res.write_access ? res.write_access : ''
 			});
 		});
 
@@ -97,15 +97,15 @@ export default class EditUser extends React.Component {
 			}
 		});
 	}
-	handleOptionChange = (event) => {
+	handleOptionChange = (event,selected) => {
 		this.setState({
-			status_code: event.target.value
+			status_code: selected
 		});
 	}
 
-	handleWriteAccess = (event) =>{
+	handleWriteAccess = (event,selected) =>{
 		this.setState({
-			write_access: event.target.value
+			write_access: selected
 		});
 	}
 	render(){
@@ -131,25 +131,29 @@ export default class EditUser extends React.Component {
 					<br/><br/>
 					<p>Status</p>
 					 <RadioButtonGroup name="status_code" valueSelected={this.state.status_code}  onChange={this.handleOptionChange}>
-						<RadioButton
-							value="1"
-							label="Accept Request"
-							style={styles.radioButton}
-						/>
-						<RadioButton
-							value="2"
-							label="Deny Request"
-							style={styles.radioButton}
-						/>
+						{
+							STATUS_USER_PROJECT.map((status, index) => {
+								return <RadioButton key={index}
+											value={status.value}
+											label={status.text}
+											style={styles.radioButton}
+										/>
+							})
+						}
 					</RadioButtonGroup>
 					<br/><br/>
-					<TextField
-						value={this.state.write_access}
-						floatingLabelText="Write Access"
-						floatingLabelStyle={styles.floatingLabelStyle}
-						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-						onChange={this.handleWriteAccess}
-					/>
+					<p>Write Access</p>
+					 <RadioButtonGroup name="write_access" valueSelected={this.state.write_access}  onChange={this.handleWriteAccess}>
+						{
+							WRITE_ACCESS.map((privilege, index) => {
+								return <RadioButton key={index}
+											value={privilege.value}
+											label={privilege.text}
+											style={styles.radioButton}
+										/>
+							})
+						}
+					</RadioButtonGroup>
 					<br/><br/>
 					<RaisedButton href={"/projects/" + this.state.project_id + "/users/" + this.state.user_id} label="Cancel" style={styles.button} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />

@@ -4,9 +4,11 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 //import API
 import { sendRequest, checkPermission } from '../helpers';
-import {ROOT_URL} from '../config/config';
+import {ROOT_URL,STATUS_PROJECT} from '../config/config';
 
 const style = {
   margin: 12,
@@ -28,6 +30,10 @@ const styles = {
 export default class Show extends React.Component {
 	constructor(props){
 		super(props);
+
+		const defaultDate = new Date();
+		defaultDate.setFullYear(defaultDate.getFullYear() - 1);
+
 		this.state = {
 			project_id: props.match.params.project_id,
 			onActive: true,
@@ -38,7 +44,8 @@ export default class Show extends React.Component {
 			project_value:'',
 			project_effort:'',
 			project_status:'',
-			project_deadline: null
+			project_deadline:defaultDate,
+			project_startdate:defaultDate
 		}
 	}
 	componentDidMount = () => {
@@ -49,14 +56,16 @@ export default class Show extends React.Component {
 			window.location = '/';
 		}
 		sendRequest(url,'get').then(function(res) {
-			var deadline = res.deadline ? new Date(res.deadline) : null;
+			var deadline = res.deadline ? new Date(res.deadline) : _self.state.project_deadline;
+			var startDate = res.start_date ? new Date(res.start_date) : _self.state.project_startdate;
 			_self.setState({
 				project_name: res.name,
 				project_description: res.description ? res.description : '',
 				project_value: res.value ? res.value : '',
 				project_effort: res.effort ? res.effort : '',
-				project_status: res.status_code ? res.status_code : '',
-				project_deadline: deadline
+				project_status: res.status_code ? parseInt(res.status_code,10) : 0,
+				project_deadline: deadline,
+				project_startdate: startDate
 			});
 		});
 		
@@ -94,21 +103,30 @@ export default class Show extends React.Component {
 			project_deadline: date
 		});
 	}
-	handleChangeStatus = (event) => {
+
+	handleChangeStartDate = (event, date) => {
 		this.setState({
-			project_status: event.target.value
+			project_startdate: date
+		});
+	}
+
+	handleChangeStatus = (event, index, value) => {
+		this.setState({
+			project_status: value
 		});
 	}
 	handleSubmit = (event) => {
 		var _self = this,
 			url = ROOT_URL + 'projects/' + this.state.project_id;
+
 		var project = {
 			name: this.state.project_name,
 			description: this.state.project_description,
-			value: parseInt(this.state.project_value, 10),
-			effort: parseInt(this.state.project_effort, 10),
-			status_code: parseInt(this.state.project_status, 10),
-			deadline: _self.formatDate(this.state.project_deadline)
+			value: this.state.project_value ? parseInt(this.state.project_value, 10) : 0,
+			effort: this.state.project_effort ? parseInt(this.state.project_effort, 10) : 0,
+			status_code: this.state.project_status ? parseInt(this.state.project_status, 10) : 0,
+			deadline: _self.formatDate(this.state.project_deadline),
+			start_date: _self.formatDate(this.state.project_startdate)
 		}
 		sendRequest(url,'put', project).then(function(res) {
 			_self.setState({flashmessage:res.message});
@@ -158,12 +176,24 @@ export default class Show extends React.Component {
 						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 					/>
 					<br />
-					<TextField 
+					<SelectField
+						floatingLabelText="status"
 						value={this.state.project_status}
 						onChange={this.handleChangeStatus}
-						floatingLabelText="status"
-						floatingLabelStyle={styles.floatingLabelStyle}
-						floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+						>
+						{
+							STATUS_PROJECT.map((status, index) => {
+								return <MenuItem key={index} value={status.value} primaryText={status.text}>
+										</MenuItem>
+							})
+						}
+					</SelectField>
+					<br />
+					<DatePicker
+						value={this.state.project_startdate}
+						hintText="Start Date"
+						onChange={this.handleChangeStartDate}
+						autoOk={true}
 					/>
 					<br />
 					<DatePicker

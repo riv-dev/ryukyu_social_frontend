@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 //import API
-import { sendRequest, checkPermission, formatDate } from '../helpers';
+import { sendRequest, checkPermission, formatDate, showStatus } from '../helpers';
 import {ROOT_URL} from '../config/config';
 
 const style = {
@@ -17,6 +17,7 @@ export default class Show extends React.Component {
 			open: false,
 			project : [],
 			users: [],
+			status: '',
 			project_id: props.match.params.project_id
 		}
 	}
@@ -26,11 +27,15 @@ export default class Show extends React.Component {
 			 url_project = ROOT_URL + 'projects/' + this.state.project_id,
 			 url_project_users = ROOT_URL + 'projects/' + this.state.project_id + '/users';
 		sendRequest(url_project,'get').then(function(res) {
-			_self.setState({project: res});
+			_self.setState({
+				project: res,
+				status: showStatus(res.status_code)
+			});
 		});
 		sendRequest(url_project_users,'get').then(function(res) {
 			_self.setState({users: res});
 		});
+		
 	}
 
 	removeUser = (user_id) => {
@@ -97,6 +102,7 @@ export default class Show extends React.Component {
 	render() {
 		const {project, users} = this.state;
 		let projectDeadline = new Date(project.deadline);
+		let projectStartDate = new Date(project.start_date);
 		
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -105,7 +111,8 @@ export default class Show extends React.Component {
 					<p>description: {project.description}</p>
 					<p>value: {project.value}</p>
 					<p>effort: {project.effort}</p>
-					<p>status: {project.status}</p>
+					<p>status: {this.state.status}</p>
+					<p>Start date: {formatDate(projectStartDate)}</p>
 					<p>Deadline: {formatDate(projectDeadline)}</p>
 					<div>
 						{users ? 
