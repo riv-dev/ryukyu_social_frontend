@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 //import API
-import { sendRequest, checkPermission, formatDate, showStatus } from '../helpers';
+import { sendRequest, checkPermission, formatDate } from '../helpers';
 import {ROOT_URL} from '../config/config';
 
 const style = {
@@ -26,13 +26,13 @@ export default class Show extends React.Component {
 		var _self = this,
 			 url_project = ROOT_URL + 'projects/' + this.state.project_id,
 			 url_project_users = ROOT_URL + 'projects/' + this.state.project_id + '/users';
-		sendRequest(url_project,'get').then(function(res) {
+		sendRequest(url_project,'GET').then(function(res) {
 			_self.setState({
 				project: res,
-				status: showStatus(res.status_code)
+				// status: showStatus(res.status_code)
 			});
 		});
-		sendRequest(url_project_users,'get').then(function(res) {
+		sendRequest(url_project_users,'GET').then(function(res) {
 			_self.setState({users: res});
 		});
 		
@@ -41,7 +41,7 @@ export default class Show extends React.Component {
 	removeUser = (user_id) => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + user_id,
 			_self = this;
-		sendRequest(url,'delete').then(function(res) {
+		sendRequest(url,'DELETE').then(function(res) {
 			_self.removeUserInList(user_id);
 		});
 	}
@@ -57,7 +57,7 @@ export default class Show extends React.Component {
 
 	removeProject = () => {
 		var url = ROOT_URL + 'projects/' + this.state.project_id;
-		sendRequest(url,'delete').then(function(res) {
+		sendRequest(url,'DELETE').then(function(res) {
 			window.location = '/'
 		});
 	}
@@ -111,7 +111,7 @@ export default class Show extends React.Component {
 					<p>description: {project.description}</p>
 					<p>value: {project.value}</p>
 					<p>effort: {project.effort}</p>
-					<p>status: {this.state.status}</p>
+					<p>status: {project.status}</p>
 					<p>Start date: {formatDate(projectStartDate)}</p>
 					<p>Deadline: {formatDate(projectDeadline)}</p>
 					<div>

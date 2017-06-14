@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 //import API
-import { sendRequest, getTokenKey, checkPermission } from '../helpers';
+import { sendRequest, checkPermission } from '../helpers';
 import {ROOT_URL} from '../config/config';
 const url = ROOT_URL + 'projects';
 
@@ -20,11 +20,9 @@ export default class ListProject extends React.Component {
 		}
 	}
 	componentDidMount = () => {
-		if(!getTokenKey()){
-			return;
-		}
 		var _self = this;
-		sendRequest(url,'get').then(function(res) {
+		
+		sendRequest(url,'GET').then(function(res) {
 			_self.setState({projects: res});
 		});
 	}
@@ -51,7 +49,7 @@ export default class ListProject extends React.Component {
 	removeProject = (project_id) => {
 		var url = ROOT_URL + 'projects/' + project_id,
 			_self = this;
-		sendRequest(url,'delete').then(function(res) {
+		sendRequest(url,'DELETE').then(function(res) {
 			_self.removeProjectInList(project_id)
 		});
 	}

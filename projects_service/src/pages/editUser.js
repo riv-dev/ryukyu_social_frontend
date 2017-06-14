@@ -54,12 +54,12 @@ export default class EditUser extends React.Component {
 			  url_user_project = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id;
 
 		//Get user detail in project
-		sendRequest(url_user,'get').then(function(res) {			
+		sendRequest(url_user,'GET').then(function(res) {			
 			_self.setState({user_name: res.firstname + " " + res.lastname});
 		});
 
 		//Get project detail
-		sendRequest(url_project,'get').then(function(res) {
+		sendRequest(url_project,'GET').then(function(res) {
 			_self.setState({
 				project: res,
 				project_name: res.name ? res.name : ''
@@ -67,9 +67,9 @@ export default class EditUser extends React.Component {
 		});
 
 		//get user in project
-		sendRequest(url_user_project,'get').then(function(res) {
+		sendRequest(url_user_project,'GET').then(function(res) {
 			_self.setState({
-				status_code: res.status_code ? res.status_code : 0,
+				status_code: res.status ? res.status : "",
 				write_access: res.write_access ? res.write_access : ''
 			});
 		});
@@ -85,10 +85,11 @@ export default class EditUser extends React.Component {
 		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + this.state.user_id,
 			_self = this;
 		var data = {
-			status_code: this.state.status_code ? parseInt(this.state.status_code,10) : 0,
+			status: this.state.status_code ? this.state.status_code : "",
 			write_access: this.state.write_access ? parseInt(this.state.write_access,10) : 0
 		}
-		sendRequest(url,'put', data).then(function(res) {
+		
+		sendRequest(url,'PUT', data).then(function(res) {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){

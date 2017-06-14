@@ -55,15 +55,16 @@ export default class Show extends React.Component {
 		if(permission < 1){
 			window.location = '/';
 		}
-		sendRequest(url,'get').then(function(res) {
+		sendRequest(url,'GET').then(function(res) {
 			var deadline = res.deadline ? new Date(res.deadline) : _self.state.project_deadline;
 			var startDate = res.start_date ? new Date(res.start_date) : _self.state.project_startdate;
 			_self.setState({
+				project: res,
 				project_name: res.name,
 				project_description: res.description ? res.description : '',
 				project_value: res.value ? res.value : '',
 				project_effort: res.effort ? res.effort : '',
-				project_status: res.status_code ? parseInt(res.status_code,10) : 0,
+				project_status: res.status ? res.status : 0,
 				project_deadline: deadline,
 				project_startdate: startDate
 			});
@@ -124,11 +125,11 @@ export default class Show extends React.Component {
 			description: this.state.project_description,
 			value: this.state.project_value ? parseInt(this.state.project_value, 10) : 0,
 			effort: this.state.project_effort ? parseInt(this.state.project_effort, 10) : 0,
-			status_code: this.state.project_status ? parseInt(this.state.project_status, 10) : 0,
+			status: this.state.project_status ? this.state.project_status : "",
 			deadline: _self.formatDate(this.state.project_deadline),
 			start_date: _self.formatDate(this.state.project_startdate)
 		}
-		sendRequest(url,'put', project).then(function(res) {
+		sendRequest(url,'PUT', project).then(function(res) {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){

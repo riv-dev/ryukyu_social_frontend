@@ -2,25 +2,25 @@ export const URL = 'https://ryukyu-social.cleverword.com/';
 export const ROOT_URL = URL + 'projects_service/api/';
 export const STATUS_PROJECT = [
 	{
-		value: 0,
+		value: "new",
 		text: "New"
 	},
 	{
-		value: 1,
+		value: "doing",
 		text: "Doing"
 	},
 	{
-		value: 2,
-		text: "Done"
+		value: "finished",
+		text: "Finished"
 	}
 ]
 export const STATUS_USER_PROJECT = [
 	{
-		value: 0,
+		value: "active",
 		text: "Active"
 	},
 	{
-		value: 1,
+		value: "inactive",
 		text: "Inactive"
 	}
 ]

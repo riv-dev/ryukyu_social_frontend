@@ -42,7 +42,7 @@ export default class AddUser extends React.Component {
 			user_in_project = [];
 		
 		//GET ALL USERS
-		sendRequest(url,'get').then(function(res) {
+		sendRequest(url,'GET').then(function(res) {
 			var users = [];
 			for(var i=0; i<res.length;i++){
 				users.push({
@@ -51,7 +51,7 @@ export default class AddUser extends React.Component {
 				});
 			}
 			//GET USERS IN PROJECT
-			sendRequest(url_user_prj,'get').then(function(res) {
+			sendRequest(url_user_prj,'GET').then(function(res) {
 				user_in_project = res;
 				for(var j=0; j<user_in_project.length;j++){
 					var array = _self.removeItem(users,user_in_project[j].id); // REMOVE USER ALREADY EXIST
@@ -76,7 +76,7 @@ export default class AddUser extends React.Component {
 			data = {
 				user_id : this.state.user_id
 			};	
-		sendRequest(url,'post', data).then(function(res) {
+		sendRequest(url,'POST', data).then(function(res) {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){

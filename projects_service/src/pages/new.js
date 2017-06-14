@@ -100,12 +100,12 @@ export default class New extends React.Component {
 			description: this.state.project_description,
 			value: this.state.project_value ? parseInt(this.state.project_value, 10) : 0,
 			effort: this.state.project_effort ? parseInt(this.state.project_effort, 10) : 0,
-			status_code: this.state.project_status ? parseInt(this.state.project_status, 10) : 0,
+			status: this.state.project_status ? this.state.project_status : "",
 			deadline: _self.formatDate(this.state.project_deadline),
 			start_date: _self.formatDate(this.state.project_startdate)
 		}
 		
-		sendRequest(url,'post', project).then(function(res) {
+		sendRequest(url,'POST', project).then(function(res) {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){

@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import {ROOT_URL,STATUS_PROJECT} from './config/config';
+import {ROOT_URL,STATUS_PROJECT,WRITE_ACCESS} from './config/config';
 
 const TOKEN_KEY = 'token';
-localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3MjU4NzUyLCJleHAiOjE0OTcyODc1NTJ9.0sQa0MCFQoPUUYWQv2dL3p2eisrSZ8dUrOjfPO4Zj74')
+localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3NDEyNTUwLCJleHAiOjE0OTc0NDEzNTB9.S7faTwOlpuoXZP49xv8sHZRzCTF2qIHYXU-Ctp1XYz0')
 
 export function getTokenKey() {
   	return localStorage.getItem(TOKEN_KEY);
@@ -23,74 +23,21 @@ export function isAdmin() {
 }
 
 export function sendRequest(url, method, data = null) {
-  switch (method) {
-    case 'get' :
-      return $.ajax({
+	return $.ajax({
+				type: method,
 				url: url,
-				dataType: 'json',
+				data: data,
 				headers: {
 					'x-access-token': getTokenKey()
 				},
 				success: function(data){
 					return data;
 				},
-				error: function(error) {
-					return error.response;
+				error: function(xhr, status, error) {
+					// var err = JSON.parse(xhr.responseText);
+					// return err;
 				}
 			});
-
-    case 'post':
-      return $.ajax({
-				type: 'POST',
-				url: url,
-				data: data,
-				headers: {
-					'x-access-token': getTokenKey()
-				},
-				success: function(data){
-					return data;
-				},
-				error: function(xhr, status, error) {
-					var err = JSON.parse(xhr.responseText);
-					return err;
-				}
-			});
-	case 'put':
-      return $.ajax({
-				type: 'PUT',
-				url: url,
-				data: data,
-				headers: {
-					'x-access-token': getTokenKey()
-				},
-				success: function(data){
-					return data;
-				},
-				error: function(xhr, status, error) {
-					var err = JSON.parse(xhr.responseText);
-					return err;
-				}
-			});		
-	case 'delete':
-		return $.ajax({
-				type: 'DELETE',
-				url: url,
-				data: data,
-				headers: {
-					'x-access-token': getTokenKey()
-				},
-				success: function(data){
-					return data;
-				},
-				error: function(xhr, status, error) {
-					var err = JSON.parse(xhr.responseText);
-					return err;
-				}
-			});		
-    default:
-      return null;
-  }
-
 }
 
 export function checkPermission(project_id) {
@@ -98,7 +45,7 @@ export function checkPermission(project_id) {
 	var permission = 0;
 	var url = ROOT_URL + 'projects/' + project_id + '/users/' + getUserId();
 	
-	sendRequest(url,'get').then(function(res) {
+	sendRequest(url,'GET').then(function(res) {
 		permission = res.write_access;
 	});
 	//check if admin
@@ -129,6 +76,17 @@ export function showStatus(status_code){
 		return true;
 	});
 	return status;
+}
+
+export function showWriteAccess(access_code){
+	var access = '';
+	WRITE_ACCESS.filter(function(item) { 
+		if(item.value === access_code){
+			access =  item.text;
+		}
+		return true;
+	});
+	return access;
 }
 
 function parseJwt (token) {
