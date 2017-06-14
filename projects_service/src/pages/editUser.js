@@ -70,7 +70,7 @@ export default class EditUser extends React.Component {
 		sendRequest(url_user_project,'GET').then(function(res) {
 			_self.setState({
 				status_code: res.status ? res.status : "",
-				write_access: res.write_access ? res.write_access : ''
+				write_access: res.write_access ? parseInt(res.write_access,10) : 0
 			});
 		});
 
@@ -88,7 +88,7 @@ export default class EditUser extends React.Component {
 			status: this.state.status_code ? this.state.status_code : "",
 			write_access: this.state.write_access ? parseInt(this.state.write_access,10) : 0
 		}
-		
+
 		sendRequest(url,'PUT', data).then(function(res) {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
