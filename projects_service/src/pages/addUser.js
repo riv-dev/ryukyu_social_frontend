@@ -80,7 +80,7 @@ export default class AddUser extends React.Component {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + _self.state.project_id + '/users/' + _self.state.user_id;
+					window.location = '/projects_service/projects/' + _self.state.project_id + '/users/' + _self.state.user_id;
 				},1000)
 			}
 		});

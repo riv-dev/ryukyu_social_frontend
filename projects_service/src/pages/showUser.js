@@ -41,7 +41,7 @@ export default class ShowUser extends React.Component {
 		var url = ROOT_URL + 'projects/' + this.state.project_id + '/users/' + user_id,
 			_self = this;
 		sendRequest(url,'DELETE').then(function(res) {
-			window.location = '/projects/' + _self.state.project_id;
+			window.location = '/projects_service/projects/' + _self.state.project_id;
 		});
 	}
 

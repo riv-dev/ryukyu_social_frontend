@@ -109,7 +109,7 @@ export default class New extends React.Component {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + res.project_id
+					window.location = '/projects_service/projects/' + res.project_id
 				},1000)
 			}
 		});

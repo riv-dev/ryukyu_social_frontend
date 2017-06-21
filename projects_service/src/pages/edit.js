@@ -53,7 +53,7 @@ export default class Show extends React.Component {
 			url = ROOT_URL + 'projects/' + this.state.project_id,
 			permission = checkPermission();
 		if(permission < 1){
-			window.location = '/';
+			window.location = '/projects_service';
 		}
 		sendRequest(url,'GET').then(function(res) {
 			var deadline = res.deadline ? new Date(res.deadline) : _self.state.project_deadline;
@@ -133,7 +133,7 @@ export default class Show extends React.Component {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + res.project_id
+					window.location = '/projects_service/projects/' + res.project_id
 				},1000)
 			}
 		});

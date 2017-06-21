@@ -78,7 +78,7 @@ export default class EditUser extends React.Component {
 		var permission = checkPermission(this.state.project_id);
 		
 		if(permission !== 2){
-			window.location = '/';
+			window.location = '/projects_service';
 		}
 	}
 	handleSubmit = (event) => {
@@ -93,7 +93,7 @@ export default class EditUser extends React.Component {
 			_self.setState({flashmessage:res.message});
 			if(res.status === "success"){
 				setTimeout(function(){
-					window.location = '/projects/' + res.project_id
+					window.location = '/projects_service/projects/' + res.project_id
 				},1000)
 			}
 		});
