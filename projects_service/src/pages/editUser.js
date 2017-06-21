@@ -156,7 +156,7 @@ export default class EditUser extends React.Component {
 						}
 					</RadioButtonGroup>
 					<br/><br/>
-					<RaisedButton href={"/projects/" + this.state.project_id + "/users/" + this.state.user_id} label="Cancel" style={styles.button} />
+					<RaisedButton href={"/projects_service/projects/" + this.state.project_id + "/users/" + this.state.user_id} label="Cancel" style={styles.button} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />
 				
 				</div>

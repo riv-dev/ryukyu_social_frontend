@@ -181,7 +181,7 @@ export default class New extends React.Component {
 						autoOk={true}
 					/>
 					<br />
-					<RaisedButton href='/' label="Cancel" style={style} />
+					<RaisedButton href='/projects_service' label="Cancel" style={style} />
     				<RaisedButton disabled={this.state.onActive} onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>
