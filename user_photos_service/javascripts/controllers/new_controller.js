@@ -27,7 +27,7 @@ app.controller('newController', function($scope, $http, $routeParams, $location,
                 url: apiBaseURL + "/users/" + $routeParams.user_id + "/photo",
                 method: 'POST',
                 headers: {
-                    'x-access-token': $localStorage.token
+                    'x-access-token': CommonFunctions.getToken()
                 },                
                 data: {          
 						lastname: $scope.lastname, 

@@ -2,7 +2,7 @@ import $ from 'jquery';
 import {ROOT_URL,STATUS_PROJECT,WRITE_ACCESS} from './config/config';
 
 const TOKEN_KEY = 'token';
-localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3NDEyNTUwLCJleHAiOjE0OTc0NDEzNTB9.S7faTwOlpuoXZP49xv8sHZRzCTF2qIHYXU-Ctp1XYz0')
+//localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImxhc3RuYW1lIjoiVXNlciIsImZpcnN0bmFtZSI6IlJlZ3VsYXIiLCJ0aXRsZSI6IlRlc3QgVXNlciIsImVtYWlsIjoicmVndWxhci11c2VyQHJ5dWt5dS1pLmNvLmpwIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MCwiaWF0IjoxNDk2MjI4MDAzfQ.lvDtHdWc_fcG-kqEVV9Pes_sbpIIkjwClFhc9BbCQtM');
 
 export function getTokenKey() {
   	return localStorage.getItem(TOKEN_KEY);

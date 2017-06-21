@@ -20,9 +20,13 @@ app.service('CommonFunctions', function() {
         }     
     };
 
+    this.getToken = function() {
+        return window.localStorage.getItem("token");
+    }
+
     this.checkLoggedInUser = function(scope, localStorage) {
-        if(localStorage.token) {
-            var decodedToken = parseJwt(localStorage.token);
+        if(this.getToken()) {
+            var decodedToken = parseJwt(this.getToken());
             scope.$parent.login_status = "Logged in as: " + decodedToken.email;
             scope.$parent.loggedin_user = decodedToken;
             scope.loggedin_user = decodedToken;

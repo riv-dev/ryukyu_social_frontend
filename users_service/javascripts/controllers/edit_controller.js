@@ -7,21 +7,35 @@ app.controller('editController', function ($scope, $http, $routeParams, $locatio
         $scope.checkboxModel = {admin : 0};
         $scope.routeID = $routeParams.user_id;
 
-        $http.get(apiBaseURL + "/users/" + $routeParams.user_id)
+        /*$http.get(apiBaseURL + "/users/" + $routeParams.user_id)
             .then(function (response) {
                 $scope.firstname = response.data.firstname;
                 $scope.lastname = response.data.lastname;
                 $scope.title = response.data.title;
                 $scope.email = response.data.email;
                 $scope.checkboxModel.admin = response.data.admin;
-            });
+            });*/
+
+        $http({
+            method: 'GET',
+            url: apiBaseURL + "/users/" + $routeParams.user_id,
+            headers: {
+                'x-access-token': CommonFunctions.getToken()
+            }
+        }).then(function (response) {
+            $scope.firstname = response.data.firstname;
+            $scope.lastname = response.data.lastname;
+            $scope.title = response.data.title;
+            $scope.email = response.data.email;
+            $scope.checkboxModel.admin = response.data.admin;
+         });
 
         $scope.put = function () {
             $http({
                 method: 'PUT',
                 url: apiBaseURL + '/users/' + $routeParams.user_id,
                 headers: {
-                    'x-access-token': $localStorage.token
+                    'x-access-token': CommonFunctions.getToken()
                 },
                 data: {
                     firstname: $scope.firstname,

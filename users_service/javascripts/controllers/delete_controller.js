@@ -8,7 +8,7 @@ app.controller('deleteController', function ($scope, $http, $routeParams, $locat
             method: 'DELETE',
             url: apiBaseURL + '/users/' + $routeParams.user_id,
             headers: {
-                'x-access-token': $localStorage.token
+                'x-access-token': CommonFunctions.getToken()
             }
         }).then(
             function successCallback(response) {

@@ -42,7 +42,7 @@ const App = ({children}) => (
 injectTapEventPlugin();
 
 ReactDOM.render(
-  <Router>
+  <Router /*basename={'projects_service/build'}*/>
 	  <div>
 		<Route path='/' component={App} />
 		<Route exact path='/' component={ListProject} />

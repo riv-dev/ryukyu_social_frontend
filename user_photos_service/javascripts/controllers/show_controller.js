@@ -5,8 +5,18 @@ app.controller('showController', function($scope, $http, $routeParams, $localSto
 
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
 
-    $http.get(apiBaseURL + "/users/"+$routeParams.user_id+"/photo")
+    /*$http.get(apiBaseURL + "/users/"+$routeParams.user_id+"/photo")
     .then(
         function (response) {$scope.photo = response.data;}
-    );
+    );*/
+
+    $http({
+        method: 'GET',
+        url: apiBaseURL + "/users/"+$routeParams.user_id+"/photo",
+        headers: {
+            'x-access-token': CommonFunctions.getToken()
+        }
+    }).then(function (response) {
+        $scope.photo = response.data;
+    });
 });

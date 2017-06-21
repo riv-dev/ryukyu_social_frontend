@@ -11,7 +11,7 @@ app.controller('newController', function($scope, $http, $location, $localStorage
                 method: 'POST',
                 url: apiBaseURL + '/users',
                 headers: {
-                    'x-access-token': $localStorage.token
+                    'x-access-token': CommonFunctions.getToken()
                 },
                 data: {firstname: $scope.firstname, lastname: $scope.lastname, title: $scope.title, email: $scope.email, password: $scope.password, admin: $scope.checkboxModel.admin}
             }).then(

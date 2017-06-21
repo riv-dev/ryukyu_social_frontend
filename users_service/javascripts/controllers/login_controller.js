@@ -12,7 +12,7 @@ app.controller('loginController', function($scope, $http, $location, $localStora
             function successCallback(response) {
                 if(response.data.status == "success") {
                     $localStorage.flash_message = "Successful Login!";
-                    $localStorage.token = response.data.token
+                    CommonFunctions.setToken(response.data.token);
                     $location.path('/');
                 } else {
                     $scope.$parent.flash_message = "Invalid Credentials";
