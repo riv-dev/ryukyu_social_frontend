@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 //import API
-import { sendRequest, checkPermission, formatDate } from '../helpers';
+import { sendRequest, checkPermission, formatDate, checkShowContent } from '../helpers';
 import {ROOT_URL} from '../config/config';
 
 const style = {
@@ -23,19 +23,21 @@ export default class Show extends React.Component {
 	}
 
 	componentDidMount = () => {
-		var _self = this,
-			 url_project = ROOT_URL + 'projects/' + this.state.project_id,
-			 url_project_users = ROOT_URL + 'projects/' + this.state.project_id + '/users';
-		sendRequest(url_project,'GET').then(function(res) {
-			_self.setState({
-				project: res,
-				// status: showStatus(res.status_code)
+		var show = checkShowContent();
+		if(show){
+			var _self = this,
+				url_project = ROOT_URL + 'projects/' + this.state.project_id,
+				url_project_users = ROOT_URL + 'projects/' + this.state.project_id + '/users';
+			sendRequest(url_project,'GET').then(function(res) {
+				_self.setState({
+					project: res,
+					// status: showStatus(res.status_code)
+				});
 			});
-		});
-		sendRequest(url_project_users,'GET').then(function(res) {
-			_self.setState({users: res});
-		});
-		
+			sendRequest(url_project_users,'GET').then(function(res) {
+				_self.setState({users: res});
+			});
+		}
 	}
 
 	removeUser = (user_id) => {
@@ -103,9 +105,10 @@ export default class Show extends React.Component {
 		const {project, users} = this.state;
 		let projectDeadline = new Date(project.deadline);
 		let projectStartDate = new Date(project.start_date);
-		
+		const show = checkShowContent();
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				{show ?
 				<div>
 					<p>Project name: {project.name}</p>
 					<p>description: {project.description}</p>
@@ -138,6 +141,7 @@ export default class Show extends React.Component {
 						{this.beDelete()}
 					</div>
 				</div>
+				: <div>Please login</div>}
 			</MuiThemeProvider>
 		)
 	}

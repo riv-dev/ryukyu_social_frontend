@@ -4,7 +4,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 
 //import API
-import { sendRequest } from '../helpers';
+import { sendRequest, checkShowContent } from '../helpers';
 import {ROOT_URL, URL} from '../config/config';
 
 const style = {
@@ -36,31 +36,34 @@ export default class AddUser extends React.Component {
 		})
 	}
 	componentDidMount = () => {
-		var url = URL + 'users_service/api/users',
-			url_user_prj = ROOT_URL + 'projects/' + this.state.project_id + '/users',
-			_self = this,
-			user_in_project = [];
-		
-		//GET ALL USERS
-		sendRequest(url,'GET').then(function(res) {
-			var users = [];
-			for(var i=0; i<res.length;i++){
-				users.push({
-					text: res[i].firstname + " " + res[i].lastname,
-					value: res[i].id
-				});
-			}
-			//GET USERS IN PROJECT
-			sendRequest(url_user_prj,'GET').then(function(res) {
-				user_in_project = res;
-				for(var j=0; j<user_in_project.length;j++){
-					var array = _self.removeItem(users,user_in_project[j].id); // REMOVE USER ALREADY EXIST
-					users = array;
-				}
-				_self.setState({users:users});
-			});
+		const show = checkShowContent();
+		if(show){
+			var url = URL + 'users_service/api/users',
+				url_user_prj = ROOT_URL + 'projects/' + this.state.project_id + '/users',
+				_self = this,
+				user_in_project = [];
 			
-		});
+			//GET ALL USERS
+			sendRequest(url,'GET').then(function(res) {
+				var users = [];
+				for(var i=0; i<res.length;i++){
+					users.push({
+						text: res[i].firstname + " " + res[i].lastname,
+						value: res[i].id
+					});
+				}
+				//GET USERS IN PROJECT
+				sendRequest(url_user_prj,'GET').then(function(res) {
+					user_in_project = res;
+					for(var j=0; j<user_in_project.length;j++){
+						var array = _self.removeItem(users,user_in_project[j].id); // REMOVE USER ALREADY EXIST
+						users = array;
+					}
+					_self.setState({users:users});
+				});
+				
+			});
+		}
 	}
 
 	removeItem = (arrDes, filterValue) => {
@@ -86,8 +89,10 @@ export default class AddUser extends React.Component {
 		});
 	}
 	render(){
+		const show = checkShowContent();
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				{show ?
 				<div>
 					<p>{this.state.flashmessage}</p>
 					<AutoComplete
@@ -103,6 +108,7 @@ export default class AddUser extends React.Component {
 					<RaisedButton href={"/projects/" + this.state.project_id} label="Cancel" style={style} />
     				<RaisedButton onTouchTap={this.handleSubmit} disabled={this.state.onActive} label="Update" primary={true} style={style} />
 				</div>
+				: <div>Please login</div>}
 			</MuiThemeProvider>
 		)
 	}

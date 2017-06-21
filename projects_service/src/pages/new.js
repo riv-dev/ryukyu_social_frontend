@@ -7,7 +7,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 //import API
-import { sendRequest } from '../helpers';
+import { sendRequest, checkPermission } from '../helpers';
 import {ROOT_URL,STATUS_PROJECT} from '../config/config';
 const url = ROOT_URL + 'projects';
 const style = {
@@ -115,8 +115,14 @@ export default class New extends React.Component {
 		});
 	}
 	render() {
+		const permission = checkPermission();
+		var show = false;
+		if(permission >= 0){
+			show = true
+		}
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				{show ?
 				<div>
 					<p>{this.state.error}</p>
 					<TextField
@@ -184,6 +190,7 @@ export default class New extends React.Component {
 					<RaisedButton href='/' label="Cancel" style={style} />
     				<RaisedButton disabled={this.state.onActive} onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
 				</div>
+				: <div>Please login</div>}
 			</MuiThemeProvider>
 		)
 	}

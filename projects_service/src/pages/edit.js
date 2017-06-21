@@ -139,8 +139,14 @@ export default class Show extends React.Component {
 		});
 	}
 	render() {
+		const permission = checkPermission();
+		var show = false;
+		if(permission >= 0){
+			show = true
+		}
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				{show ?
 				<div>
 					<p>{this.state.flashMessage}</p>
 					<TextField
@@ -207,6 +213,7 @@ export default class Show extends React.Component {
 					<RaisedButton href={"/projects/" + this.state.project_id} label="Cancel" style={style} />
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={style} />
 				</div>
+				: <div>Please login</div>}
 			</MuiThemeProvider>
 		)
 	}

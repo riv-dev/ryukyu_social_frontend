@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 //import API
-import { sendRequest, checkPermission } from '../helpers';
+import { sendRequest, checkShowContent, checkPermission } from '../helpers';
 import {ROOT_URL,URL,STATUS_USER_PROJECT, WRITE_ACCESS} from '../config/config';
 const styles = {
   errorStyle: {
@@ -110,8 +110,10 @@ export default class EditUser extends React.Component {
 		});
 	}
 	render(){
+		const show = checkShowContent();
 		return(
 			<MuiThemeProvider muiTheme={getMuiTheme()}>
+				{show ?
 				<div>
 					<p>{this.state.flashMessage}</p>
 					<TextField
@@ -160,6 +162,7 @@ export default class EditUser extends React.Component {
     				<RaisedButton onTouchTap={this.handleSubmit} label="Update" primary={true} style={styles.button} />
 				
 				</div>
+				: <div>Please login</div>}
 			</MuiThemeProvider>
 		)
 	}

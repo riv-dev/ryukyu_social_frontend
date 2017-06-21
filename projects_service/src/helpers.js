@@ -1,24 +1,33 @@
 import $ from 'jquery';
 import {ROOT_URL,STATUS_PROJECT,WRITE_ACCESS} from './config/config';
 
-const TOKEN_KEY = 'token';
-localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3NDEyNTUwLCJleHAiOjE0OTc0NDEzNTB9.S7faTwOlpuoXZP49xv8sHZRzCTF2qIHYXU-Ctp1XYz0')
+const TOKEN_KEY = 'RItoken';
+// localStorage.setItem('RItoken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk3NDk5MjgxLCJleHAiOjE0OTc1MjgwODF9.Un2Rl0zdAtSYbjstejPjvj-p2DMTncnKu9mtz5r4Qa4')
 
 export function getTokenKey() {
+	const token = checkExpireToken(localStorage.getItem(TOKEN_KEY));
+	if(!token){
+		localStorage.setItem(TOKEN_KEY, null);
+	}
   	return localStorage.getItem(TOKEN_KEY);
 }
 
 export function getUserId() {
-	var decodedToken = parseJwt(localStorage.getItem(TOKEN_KEY));
-  	return decodedToken.id;
+	if(localStorage.getItem(TOKEN_KEY) != null){
+		var decodedToken = parseJwt(localStorage.getItem(TOKEN_KEY));
+  		return decodedToken.id;
+	}
+	return false;
 }
 
 export function isAdmin() {
-	var decodedToken = parseJwt(localStorage.getItem(TOKEN_KEY));
-	if(decodedToken.admin){
-		return true;
-	}else{
-		return false;
+	if(localStorage.getItem(TOKEN_KEY) != null){
+		var decodedToken = parseJwt(localStorage.getItem(TOKEN_KEY));
+		if(decodedToken.admin){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
 
@@ -43,6 +52,10 @@ export function sendRequest(url, method, data = null) {
 export function checkPermission(project_id) {
 	//get recent user info
 	var permission = 0;
+	if(getTokenKey() == null){
+		return -1;
+	}
+	
 	var url = ROOT_URL + 'projects/' + project_id + '/users/' + getUserId();
 	
 	sendRequest(url,'GET').then(function(res) {
@@ -88,9 +101,32 @@ export function showWriteAccess(access_code){
 	});
 	return access;
 }
-
+export function checkShowContent(){
+	const permission = checkExpireToken(getTokenKey());
+	var show = false;
+	if(permission >= 0){
+		show = true
+	}
+	return show;
+}
 function parseJwt (token) {
-	var base64Url = token.split('.')[1];
-	var base64 = base64Url.replace('-', '+').replace('_', '/');
-	return JSON.parse(window.atob(base64));
+	if(checkExpireToken(token)){
+		var base64Url = token.split('.')[1];
+		var base64 = base64Url.replace('-', '+').replace('_', '/');
+		return JSON.parse(window.atob(base64));
+	}
+	return false;
 };
+function checkExpireToken(token){
+	if(token != null){
+		var isExpiredToken = false;
+		var dateNow = new Date();
+
+		if(token.exp < dateNow.getTime())
+		{
+			isExpiredToken = true;
+		}
+		return isExpiredToken;
+	}
+	
+}
