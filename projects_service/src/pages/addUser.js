@@ -100,7 +100,7 @@ export default class AddUser extends React.Component {
 						onNewRequest={this.handleNewRequest}
 					/>
 					<br />
-					<RaisedButton href={"/projects/" + this.state.project_id} label="Cancel" style={style} />
+					<RaisedButton href={"/projects_service/projects/" + this.state.project_id} label="Cancel" style={style} />
     				<RaisedButton onTouchTap={this.handleSubmit} disabled={this.state.onActive} label="Update" primary={true} style={style} />
 				</div>
 			</MuiThemeProvider>
