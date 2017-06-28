@@ -12,12 +12,12 @@ app.controller('listController', function($scope, $http, $localStorage, CommonFu
                 'x-access-token': CommonFunctions.getToken()
             }
         }).then(function (response) {
-            $scope.users = response.data;
+            $scope.tasks = response.data;
         });
     } else {
         $http.get(apiBaseURL + "/tasks")
         .then(function (response) {
-            $scope.users = response.data;
+            $scope.tasks = response.data;
         });
     }
 
