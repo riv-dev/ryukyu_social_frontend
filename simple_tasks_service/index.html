@@ -2,7 +2,7 @@
 <html ng-app="myApp">
   <head>
     <meta charset="utf-8">
-    <base href="/users_service/">
+    <base href="/simple_tasks_service/">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
@@ -15,10 +15,10 @@
       </header>
       <nav>
         <ul>
-          <li><a href=".">User Management Service</a></li>
+          <li><a href="/users_service">User Management Service</a></li>
           <li><a href="/user_photos_service">User Photos Service</li>
           <li><a href="/projects_service">Projects Service</li>
-          <li><a href="/simple_tasks_service">Simple Tasks Service</li>
+          <li><a href=".">Simple Tasks Service</li>
           <li ng-if="!loggedin_user"><a href="login">Log In</a></li>
           <li ng-if="loggedin_user"><a href="logout">Log Out</a></li>
         </ul>
@@ -30,12 +30,7 @@
 
       <script src="javascripts/config/routes.js"></script>
       <script src="javascripts/controllers/list_controller.js"></script>
-      <script src="javascripts/controllers/show_controller.js"></script>
-      <script src="javascripts/controllers/new_controller.js"></script>
-      <script src="javascripts/controllers/edit_controller.js"></script>
       <script src="javascripts/controllers/delete_controller.js"></script>
-      <script src="javascripts/controllers/login_controller.js"></script>
-      <script src="javascripts/controllers/logout_controller.js"></script>
       <footer>
           <small>Copyright Ryukyu Interactive Vietnam</small>
       </footer>
