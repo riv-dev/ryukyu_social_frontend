@@ -57,6 +57,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: "list.html",
     controller: "listController"
   })
+  .when("/tasks/new-slack-tasks", {
+    templateUrl: "list.html",
+    controller: "slackTasksController" 
+  }) 
   .when("/tasks/:task_id/delete", {
     templateUrl: "list.html",
     controller: "deleteController" 
