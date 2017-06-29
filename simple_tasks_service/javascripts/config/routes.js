@@ -61,10 +61,6 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: "new.html",
     controller: "newController"
   })
-  .when("/tasks/:task_id", {
-    templateUrl: "show.html",
-    controller: "showController"
-  })
   .when("/tasks/new-slack-tasks", {
     templateUrl: "list.html",
     controller: "slackTasksController" 
@@ -73,6 +69,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: "list.html",
     controller: "chatworkTasksController" 
   })   
+  .when("/tasks/:task_id", {
+    templateUrl: "show.html",
+    controller: "showController"
+  })
   .when("/tasks/:task_id/delete", {
     templateUrl: "list.html",
     controller: "deleteController" 
