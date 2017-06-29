@@ -1,0 +1,10 @@
+<h2>{{task.name}}</h2>
+<p>{{task.description}}</p>
+<p>{{task.priority}}</p>
+<p>{{task.status}}</p>
+<p>{{task.deadline}}</p>
+<p>{{task.project_id}}</p>
+<p>{{task.creator_user_id}}</p>
+<ul>
+    <li ng-if="loggedin_user.admin"><a href="users/{{routeID}}/delete">Delete</a></li>
+</ul>

@@ -1,0 +1,20 @@
+<form name="newTaskForm">
+  <p>
+    <label for="name">First name: </label><input type="text" ng-model="name" required>
+    <ul ng-if="errors.name">
+      <li ng-repeat="x in errors.name">
+        {{x}}
+      </li>
+    </ul>
+  </p>
+  <p>
+    <label for="description">Last name: </label><input type="text" ng-model="description" required>
+    <ul ng-if="errors.description">
+      <li ng-repeat="x in errors.description">
+        {{x}}
+      </li>
+    </ul>  
+  </p>
+  <p><input type="submit" value="Submit" ng-click="post()"><p>
+  <p><a href=".">Cancel</a></p>
+</form>
