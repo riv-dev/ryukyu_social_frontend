@@ -1,6 +1,6 @@
 <form name="newTaskForm">
   <p>
-    <label for="name">First name: </label><input type="text" ng-model="name" required>
+    <label for="name">Name: </label><input type="text" ng-model="name" required>
     <ul ng-if="errors.name">
       <li ng-repeat="x in errors.name">
         {{x}}
@@ -8,7 +8,7 @@
     </ul>
   </p>
   <p>
-    <label for="description">Last name: </label><input type="text" ng-model="description" required>
+    <label for="description">Description: </label><input type="text" ng-model="description" required>
     <ul ng-if="errors.description">
       <li ng-repeat="x in errors.description">
         {{x}}
