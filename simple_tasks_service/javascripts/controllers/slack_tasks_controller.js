@@ -2,7 +2,7 @@ app.controller('slackTasksController', function ($scope, $http, $routeParams, $l
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
 
     if($localStorage.loggedin_user) {
-        $scope.$parent.hero = "Getting Tasks...";
+        $scope.$parent.hero = "Getting Slack Tasks...";
 
         $http({
             method: 'GET',

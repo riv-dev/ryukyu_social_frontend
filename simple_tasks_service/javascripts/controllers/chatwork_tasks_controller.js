@@ -2,7 +2,7 @@ app.controller('chatworkTasksController', function ($scope, $http, $routeParams,
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
 
     if($localStorage.loggedin_user) {
-        $scope.$parent.hero = "Getting Tasks...";
+        $scope.$parent.hero = "Getting Chatwork Tasks...";
 
         $http({
             method: 'GET',
