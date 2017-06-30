@@ -1,9 +1,16 @@
 <a href="tasks/new-slack-tasks">Get Tasks from Slack</a>
 <a href="tasks/new-chatwork-tasks">Get Tasks from Chatwork</a>
 <table>
+    <th>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Status</td>
+        <td> </td>
+        <td ng-if="loggedin_user.admin"> </td>
     <tr ng-repeat="x in tasks">
         <td>{{x.name}}</td>
         <td>{{x.description}}</td>
+        <td>{{x.status}}</td>
         <td><a href="tasks/{{x.id}}">Show</a></td>
         <td ng-if="loggedin_user.admin"><a href="tasks/{{x.id}}/delete">Delete</a></td>
     </tr>
