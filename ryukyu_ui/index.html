@@ -16,13 +16,13 @@
       </header>
       <nav id="site_nav">
         <ul class="links">
-          <li class="link-item"><a href=".">Home Panel</a></li>
-          <li class="link-item"><a href="/users_service">User Management Service</a></li>
-          <li class="link-item"><a href="/user_photos_service">User Photos Service</li>
-          <li class="link-item"><a href="/projects_service">Projects Service</li>
-          <li class="link-item"><a href="/simple_tasks_service">Simple Tasks Service</li>
-          <li id="login-link" class="link-item" ng-if="!loggedin_user"><a href="/users_service/login">Log In</a></li>
-          <li id="logout-link" class="link-item" ng-if="loggedin_user"><a href="/users_service/logout">Log Out</a></li>
+          <li class="link_item"><a href=".">Home Panel</a></li>
+          <li class="link_item"><a href="/users_service">User Management Service</a></li>
+          <li class="link_item"><a href="/user_photos_service">User Photos Service</li>
+          <li class="link_item"><a href="/projects_service">Projects Service</li>
+          <li class="link_item"><a href="/simple_tasks_service">Simple Tasks Service</li>
+          <li class="link_item link_item--login" ng-if="!loggedin_user"><a href="/users_service/login">Log In</a></li>
+          <li class="link_item link_item--logout" ng-if="loggedin_user"><a href="/users_service/logout">Log Out</a></li>
         </ul>
       </nav>
 
