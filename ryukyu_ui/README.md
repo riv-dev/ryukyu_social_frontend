@@ -7,7 +7,7 @@ Open a terminal and change into the working directory
 cd ryukyu_ui
 ```
 
-Run compass watch inside the termianl
+Run compass watch inside the terminal
 ```bash
 compass watch
 ```
