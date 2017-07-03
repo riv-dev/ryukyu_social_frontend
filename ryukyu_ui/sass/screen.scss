@@ -4,3 +4,136 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+
+body {
+    line-height: 1.0em;
+    box-sizing: border-box;
+}
+
+//Numbered lists should display numbers
+ol {
+    list-style: decimal;
+}
+
+#site_header {
+    padding: 15px;
+}
+
+#site_nav {
+    padding: 15px;
+}
+
+#site_main {
+    padding: 15px;
+}
+
+//Usually section titles
+.title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+//Usually item names in a lists
+.name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+//Custom name for projects list
+#projects_list .name {
+    font-size: 20px;
+}
+
+//For basic information, usually below a name or title
+.info {
+    font-size: 14px;
+}
+
+//The key in a key-value pair
+//Currently we want key value pairs to be display left/right
+.key {
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    color: #383838;
+}
+
+.key--none {
+    color: #5e5e5e;    
+}
+
+//The value in a key-value pair
+.value {
+    font-size: 12px;
+}
+
+.value--none {
+    color: red;
+}
+
+//If the value is a list, display the list below the key
+ol.value, ul.value, dl.value {
+    clear: left;
+    padding: 0px 10px 0px;
+}
+
+//Main section list items
+.section_information .item {
+    display: block;
+    padding: 5px 5px 15px 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #c2c2c2;
+}
+
+//Sub section list items, usually within a key-value pair
+.value .item {
+    margin-bottom: 5px;
+    padding: 0px;
+    border-bottom: none;
+}
+
+//Main sections
+.section {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+//Customize sections
+#tasks_section {
+    width: 30%;
+}
+
+#projects_section {
+    width: 40%;
+}
+
+#users_section {
+    width: 30%;
+}
+
+#site_main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+//Customize users list
+#users_list {
+    .key {
+        float: none;
+        display: block;
+        font-size: 16px;
+    }
+
+    .value {
+        display: block;
+        font-size: 14px;
+    }
+}

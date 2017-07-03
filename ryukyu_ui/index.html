@@ -3,35 +3,36 @@
   <head>
     <meta charset="utf-8">
     <base href="/ryukyu_ui/">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/screen.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
   </head>
   <body>
-      <header>
-        <h1>Ryukyu Interactive Vietnam: {{hero}}</h1>
-        <p ng-if="login_status">{{login_status}}</p>
-        <p ng-if="flash_message">{{flash_message}}</p>
+      <header id="site_header">
+        <h1 class="title">Ryukyu Interactive Vietnam: {{hero}}</h1>
+        <p class="status_msg" ng-if="login_status">{{login_status}}</p>
+        <p class="flash_msg" ng-if="flash_message">{{flash_message}}</p>
       </header>
-      <nav>
-        <ul>
-          <li><a href=".">Home Panel</a></li>
-          <li><a href="/users_service">User Management Service</a></li>
-          <li><a href="/user_photos_service">User Photos Service</li>
-          <li><a href="/projects_service">Projects Service</li>
-          <li><a href="/simple_tasks_service">Simple Tasks Service</li>
-          <li ng-if="!loggedin_user"><a href="login">Log In</a></li>
-          <li ng-if="loggedin_user"><a href="logout">Log Out</a></li>
+      <nav id="site_nav">
+        <ul class="links">
+          <li class="link-item"><a href=".">Home Panel</a></li>
+          <li class="link-item"><a href="/users_service">User Management Service</a></li>
+          <li class="link-item"><a href="/user_photos_service">User Photos Service</li>
+          <li class="link-item"><a href="/projects_service">Projects Service</li>
+          <li class="link-item"><a href="/simple_tasks_service">Simple Tasks Service</li>
+          <li id="login-link" class="link-item" ng-if="!loggedin_user"><a href="/users_service/login">Log In</a></li>
+          <li id="logout-link" class="link-item" ng-if="loggedin_user"><a href="/users_service/logout">Log Out</a></li>
         </ul>
       </nav>
 
-      <main ng-view>
+      <main id="site_main" ng-view>
 
       </main>
 
       <script src="javascripts/config/routes.js"></script>
       <script src="javascripts/controllers/home_panel_controller.js"></script>
-      <footer>
+      <footer id="site_footer">
           <small>Copyright Ryukyu Interactive Vietnam</small>
       </footer>
   </body>
