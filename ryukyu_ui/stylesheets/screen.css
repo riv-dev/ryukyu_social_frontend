@@ -78,22 +78,22 @@ ol {
   list-style: decimal;
 }
 
-/* line 18, ../sass/screen.scss */
+/* line 29, ../sass/screen.scss */
 #site_header {
   padding: 15px;
 }
 
-/* line 22, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 #site_nav {
   padding: 15px;
 }
 
-/* line 26, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 #site_main {
   padding: 15px;
 }
 
-/* line 31, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
 .title {
   font-weight: bold;
   font-size: 24px;
@@ -102,24 +102,24 @@ ol {
   padding-bottom: 5px;
 }
 
-/* line 40, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 .name {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 5px;
 }
 
-/* line 47, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 #projects_list .name {
   font-size: 20px;
 }
 
-/* line 52, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 .info {
   font-size: 14px;
 }
 
-/* line 58, ../sass/screen.scss */
+/* line 114, ../sass/screen.scss */
 .key {
   float: left;
   font-size: 12px;
@@ -127,28 +127,28 @@ ol {
   color: #383838;
 }
 
-/* line 65, ../sass/screen.scss */
+/* line 122, ../sass/screen.scss */
 .key--none {
   color: #5e5e5e;
 }
 
-/* line 70, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 .value {
   font-size: 12px;
 }
 
-/* line 74, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 .value--none {
   color: red;
 }
 
-/* line 79, ../sass/screen.scss */
+/* line 154, ../sass/screen.scss */
 ol.value, ul.value, dl.value {
   clear: left;
   padding: 0px 10px 0px;
 }
 
-/* line 85, ../sass/screen.scss */
+/* line 169, ../sass/screen.scss */
 .section_information .item {
   display: block;
   padding: 5px 5px 15px 5px;
@@ -156,14 +156,14 @@ ol.value, ul.value, dl.value {
   border-bottom: 1px solid #c2c2c2;
 }
 
-/* line 93, ../sass/screen.scss */
+/* line 192, ../sass/screen.scss */
 .value .item {
   margin-bottom: 5px;
   padding: 0px;
   border-bottom: none;
 }
 
-/* line 100, ../sass/screen.scss */
+/* line 204, ../sass/screen.scss */
 .section {
   float: left;
   width: 33.33%;
@@ -171,35 +171,35 @@ ol.value, ul.value, dl.value {
   box-sizing: border-box;
 }
 
-/* line 108, ../sass/screen.scss */
+/* line 212, ../sass/screen.scss */
 #tasks_section {
   width: 30%;
 }
 
-/* line 112, ../sass/screen.scss */
+/* line 216, ../sass/screen.scss */
 #projects_section {
   width: 40%;
 }
 
-/* line 116, ../sass/screen.scss */
+/* line 220, ../sass/screen.scss */
 #users_section {
   width: 30%;
 }
 
-/* line 120, ../sass/screen.scss */
+/* line 224, ../sass/screen.scss */
 #site_main:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 129, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 #users_list .key {
   float: none;
   display: block;
   font-size: 16px;
 }
-/* line 135, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 #users_list .value {
   display: block;
   font-size: 14px;

@@ -15,19 +15,53 @@ ol {
     list-style: decimal;
 }
 
+//The header of the website, common in all pages
+//E.g.
+//-----------------
+//  (site_header)
+//-----------------
+//   (site_nav)
+//-----------------
+//  (site_main)
+//-----------------
+//  (site_footer)
+//-----------------
 #site_header {
     padding: 15px;
 }
 
+//The navigation of the website, common in all pages
 #site_nav {
     padding: 15px;
 }
 
+//The main section of the website, common in all pages
 #site_main {
     padding: 15px;
 }
 
-//Usually section titles
+//The footer section of the website, common in all pages
+#site_footer {
+
+}
+
+//TITLE
+//Usually used for main section titles
+//E.g.
+//--------------(Section)
+//  (Section Header)
+//Projects List (title)
+//-----------------
+//  Manza 
+//     Assigned Users:
+//        - Ken
+//        - Bob
+//        - Joe
+//  ---------------
+//  Taiki Milk
+//  ---------------
+//  Fried Chicken
+//  ---------------
 .title {
     font-weight: bold;
     font-size: 24px;
@@ -36,14 +70,30 @@ ol {
     padding-bottom: 5px;
 }
 
-//Usually item names in a lists
+//NAME
+//Usually used for names of each item in a list
+//E.g.
+//--------------(Section)
+//  (Section Header)
+//Projects List (title)
+//  ---------------
+//  Manza (name)
+//     Assigned Users:
+//        - Ken
+//        - Bob
+//        - Joe
+//  ---------------
+//  Taiki Milk (name)
+//  ---------------
+//  Fried Chicken (name)
+//  ---------------
 .name {
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-//Custom name for projects list
+//Custom name style for projects list
 #projects_list .name {
     font-size: 20px;
 }
@@ -55,6 +105,12 @@ ol {
 
 //The key in a key-value pair
 //Currently we want key value pairs to be display left/right
+//E.g.
+//Task 12 (Name)
+//--------------
+//Creator (Key): Ken Le (Value)
+//Deadline (Key): Monday (Value)
+//Project (Key): Manza (Value)
 .key {
     float: left;
     font-size: 12px;
@@ -62,26 +118,54 @@ ol {
     color: #383838;
 }
 
+//Modifier for keys that don't have a value
 .key--none {
     color: #5e5e5e;    
 }
 
 //The value in a key-value pair
+//E.g.
+//Task 12 (Name)
+//--------------
+//Creator (Key): Ken Le (Value)
+//Deadline (Key): Monday (Value)
+//Project (Key): Manza (Value)
 .value {
     font-size: 12px;
 }
 
+//Modifier for values that don't have a value
 .value--none {
     color: red;
 }
 
 //If the value is a list, display the list below the key
+//E.g.
+//Task 12 (Name)
+//--------------
+//Assigned to (Key):
+//  (Value list)
+//  -Ken 
+//  -Bob 
+//  -Joe 
+//Creator (Key): Ken Le (Value)
+//Deadline (Key): Monday (Value)
+//Project (Key): Manza (Value)
 ol.value, ul.value, dl.value {
     clear: left;
     padding: 0px 10px 0px;
 }
 
-//Main section list items
+//Main list items, main information.  
+//E.g. 
+//Projects List (Section)
+//  -------------(item)
+//  Manza
+//  -------------(item)
+//  Taiki Milk 
+//  -------------(item)
+//  Fried Chicken
+//  ---------------
 .section_information .item {
     display: block;
     padding: 5px 5px 15px 5px;
@@ -89,14 +173,34 @@ ol.value, ul.value, dl.value {
     border-bottom: 1px solid #c2c2c2;
 }
 
-//Sub section list items, usually within a key-value pair
+//Sub list items, sub information.
+//Used for list items that are the values of a key within a main item.  
+//E.g.
+//Projects List (Section)
+//  -------------(item)
+//  Manza (name)
+//     Assigned Users (key):
+//       (value list)
+//        - Ken (value item)
+//        - Bob (value item)
+//        - Joe (value item)
+//  -------------(item)
+//  Taiki Milk (name)
+//  -------------(item)
+//  Fried Chicken (name)
+//  ---------------
 .value .item {
     margin-bottom: 5px;
     padding: 0px;
     border-bottom: none;
 }
 
-//Main sections
+//Main sections of the website
+//E.g.
+//|Tasks List Section|    |Projects List Section|    |Users List Section    |
+//|  Task 1          |    |  Manza              |    |  CEO: Shimada        |
+//|  Task 2          |    |  Taki Milk          |    |  CTO: Phung          |
+//|  Task 3          |    |  Fried Chicken      |    |  HR: Hung            |
 .section {
     float: left;
     width: 33.33%;
