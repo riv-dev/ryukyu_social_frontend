@@ -17,7 +17,8 @@
       </header>
       <nav id="site_nav">
         <ul class="links">
-          <li class="item active"><a href=".">Home Panel</a></li>
+          <li class="item active"><a href="./home-panel">Home Panel</a></li>
+          <li class="item"><a href="./user-panel/{{loggedin_user.id}}">My Profile</a></li>
           <li class="item"><a href="/users_service">User Management Service</a></li>
           <li class="item"><a href="/user_photos_service">User Photos Service</a></li>
           <li class="item"><a href="/projects_service">Projects Service</a></li>
@@ -27,12 +28,13 @@
         </ul>
       </nav>
 
-      <main id="site_main" ng-view>
+      <main id="site_main site_main--{{panel_modifier}}" ng-view>
 
       </main>
 
       <script src="javascripts/config/routes.js"></script>
       <script src="javascripts/controllers/home_panel_controller.js"></script>
+      <script src="javascripts/controllers/user_panel_controller.js"></script>
       <footer id="site_footer">
           <small>Copyright Ryukyu Interactive Vietnam</small>
       </footer>

@@ -1,3 +1,24 @@
+<section id="profile_section" class="section">
+    <header class="section_header">
+        <h2 class="title">{{this_user.title}}</h2>
+        <p class="name">{{this_user.firstname}} {{this_user.lastname}}</p>
+    </header>
+    <figure class="figure">
+        <p class="image">
+            <img src = "{{this_user_photo.uri}}" />
+        </p>
+        <figcaption class="caption">
+            {{this_user_photo.caption}}
+        </figcaption>
+    </figure>
+    <dl class="attributes">
+        <dt class="key status">Status:</dt>
+        <dd class="value status">{{this_user.status}}<dd>
+        <dt class="key bio">Bio:</dt>
+        <dd class="value bio">{{this_user.bio}}</dd>
+    </dl>
+</section>
+
 <section id="tasks_section" class="section">
     <header class="section_header">
         <h2 class="title">Task Board</h2>
@@ -10,8 +31,12 @@
                     {{task.description}}
                 </p>
                 <dl class="attributes">
-                    <dt class="key assigned_to">Assigned to:</dt>
-                    <dd class="value_item assigned_to {{cssLast($last)}}" ng-repeat="task_user in task.users">
+                    <dt class="key this_user_progress">{{this_user.firstname}}'s Progress:</dt>
+                    <dd class="value this_user_progress">
+                        {{this_task_user.progress_description}}
+                    </dd>
+                    <dt class="key assigned_to" ng-if="task.users.length > 1">Also assigned to this task:</dt>
+                    <dd class="value_item assigned_to {{cssLast($last)}}" ng-if="task.users.length > 1" ng-repeat="task_user in task.users">
                         <em class="key user">{{task_user.firstname}} {{task_user.lastname}}: </em>
                         <p class="value user">{{task_user.progress_description}}</p>
                     </dd>
@@ -36,7 +61,7 @@
     </header>
     <ul id="projects_list" class="section_information">
         <li class="item" ng-repeat="project in projects">
-            <a href="/project-panel/{{project.id}}">
+            <a href="/project-panel/{{project.project_id}}">
                 <h3 class="name">{{project.name}}</h3>
                 <dl class="attributes">
                     <dt class="key users">Users:</dt>
@@ -53,20 +78,6 @@
                     </dd>
                     <dd class="value value--none tasks" ng-if="!project.tasks || project.tasks.length == 0">No tasks</dd>
                 </dl>
-            </a>
-        </li>
-    </ul>
-</section>
-
-<section id="users_section" class="section">
-    <header class="section_header">
-        <h2 class="title">Users List</h2>
-    </header>
-    <ul id="users_list" class="section_information">
-        <li class="item" ng-repeat="user in users">
-            <a href="./user-panel/{{user.id}}">
-                <h3 class="key user">{{user.title}}</h3>
-                <p class="value user">{{user.firstname}} {{user.lastname}}</p>
             </a>
         </li>
     </ul>

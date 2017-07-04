@@ -1,6 +1,7 @@
 var app = angular.module('myApp', ['ngRoute','ngStorage']);
 //var apiBaseURL = "http://localhost:5000"; //local development
 var usersApiBaseURL = "https://ryukyu-social.cleverword.com/users_service/api";
+var userPhotosApiBaseURL = "https://ryukyu-social.cleverword.com/user_photos_service/api";
 var projectsApiBaseURL = "https://ryukyu-social.cleverword.com/projects_service/api";
 var tasksApiBaseURL = "https://ryukyu-social.cleverword.com/tasks_service/api";
 
@@ -57,6 +58,10 @@ app.config(function($routeProvider, $locationProvider) {
   .when("/home-panel", {
     templateUrl: "home_panel.html",
     controller: "homePanelController"
+  })
+  .when("/user-panel/:user_id", {
+    templateUrl: "user_panel.html",
+    controller: "userPanelController"
   });
 
   // use the HTML5 History API

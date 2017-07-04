@@ -265,9 +265,47 @@ body * {
 //  ------------------
 .section_information .item {
     display: block;
-    padding: 10px 5px 10px;
+    padding: 0px;
     border-bottom: 1px solid #c2c2c2;
+    a {
+        color: black;
+        display: block;
+        padding: 10px 5px 10px;
+        text-decoration: none;
+        cursor: pointer;
+        @include transition(0.2s);
+        &:hover {
+            color: black;
+            background-color: #e2edff;
+        }
+        &:visited {
+            color: black;
+        }
+    }
 }
+
+//FIGURE
+//For figures
+.figure {
+    margin-bottom: 25px;
+    .image {
+        img {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    //CAPTION
+    //For figure captions
+    .caption {
+        text-align: center;
+        font-size: 14px;
+        color: #5e5e5e;
+    }
+}
+
+
 
 //Main sections of the website
 //E.g.
@@ -283,17 +321,35 @@ body * {
 }
 
 //Customize sections
-#tasks_section {
-    width: 30%;
+#site_main--home {
+    #tasks_section {
+        width: 30%;
+    }
+
+    #projects_section {
+        width: 40%;
+    }
+
+    #users_section {
+        width: 30%;
+    }
 }
 
-#projects_section {
-    width: 40%;
+#site_main--user {
+    #profile_section {
+        width: 30%;
+    }
+
+    #tasks_section {
+        width: 40%;
+    }
+
+    #projects_section {
+        width: 30%;
+    }
 }
 
-#users_section {
-    width: 30%;
-}
+
 
 #site_main:after {
   content: "";
@@ -314,5 +370,32 @@ body * {
         float: none;
         display: block;
         font-size: 14px;
+    }
+}
+
+//Customize profile section
+#profile_section {
+    .section_header {
+        padding-bottom: 15px;
+    }
+    .title {
+        font-size: 40px;
+        border-bottom: none;
+    }
+
+    .name {
+        font-size: 34px;
+        font-weight: normal;
+        color: #5e5e5e;
+    }
+
+    .figure {
+        border: 1px solid black;
+        width: 50%;
+    }
+
+    .key, .value {
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 }

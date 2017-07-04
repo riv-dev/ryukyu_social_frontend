@@ -218,11 +218,49 @@ body * {
 /* line 266, ../sass/screen.scss */
 .section_information .item {
   display: block;
-  padding: 10px 5px 10px;
+  padding: 0px;
   border-bottom: 1px solid #c2c2c2;
 }
+/* line 270, ../sass/screen.scss */
+.section_information .item a {
+  color: black;
+  display: block;
+  padding: 10px 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+/* line 277, ../sass/screen.scss */
+.section_information .item a:hover {
+  color: black;
+  background-color: #e2edff;
+}
+/* line 281, ../sass/screen.scss */
+.section_information .item a:visited {
+  color: black;
+}
 
-/* line 278, ../sass/screen.scss */
+/* line 289, ../sass/screen.scss */
+.figure {
+  margin-bottom: 25px;
+}
+/* line 292, ../sass/screen.scss */
+.figure .image img {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+/* line 301, ../sass/screen.scss */
+.figure .caption {
+  text-align: center;
+  font-size: 14px;
+  color: #5e5e5e;
+}
+
+/* line 316, ../sass/screen.scss */
 .section {
   float: left;
   width: 33.33%;
@@ -230,37 +268,74 @@ body * {
   box-sizing: border-box;
 }
 
-/* line 286, ../sass/screen.scss */
-#tasks_section {
+/* line 325, ../sass/screen.scss */
+#site_main--home #tasks_section {
   width: 30%;
 }
-
-/* line 290, ../sass/screen.scss */
-#projects_section {
+/* line 329, ../sass/screen.scss */
+#site_main--home #projects_section {
   width: 40%;
 }
-
-/* line 294, ../sass/screen.scss */
-#users_section {
+/* line 333, ../sass/screen.scss */
+#site_main--home #users_section {
   width: 30%;
 }
 
-/* line 298, ../sass/screen.scss */
+/* line 339, ../sass/screen.scss */
+#site_main--user #profile_section {
+  width: 30%;
+}
+/* line 343, ../sass/screen.scss */
+#site_main--user #tasks_section {
+  width: 40%;
+}
+/* line 347, ../sass/screen.scss */
+#site_main--user #projects_section {
+  width: 30%;
+}
+
+/* line 354, ../sass/screen.scss */
 #site_main:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 307, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 #users_list .key {
   float: none;
   display: block;
   font-size: 16px;
 }
-/* line 313, ../sass/screen.scss */
+/* line 369, ../sass/screen.scss */
 #users_list .value {
   float: none;
   display: block;
   font-size: 14px;
+}
+
+/* line 378, ../sass/screen.scss */
+#profile_section .section_header {
+  padding-bottom: 15px;
+}
+/* line 381, ../sass/screen.scss */
+#profile_section .title {
+  font-size: 40px;
+  border-bottom: none;
+}
+/* line 386, ../sass/screen.scss */
+#profile_section .name {
+  font-size: 34px;
+  font-weight: normal;
+  color: #5e5e5e;
+}
+/* line 392, ../sass/screen.scss */
+#profile_section .figure {
+  border: 1px solid black;
+  width: 50%;
+}
+/* line 397, ../sass/screen.scss */
+#profile_section .key, #profile_section .value {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
