@@ -40,9 +40,6 @@
                         <em class="key user">{{task_user.firstname}} {{task_user.lastname}}: </em>
                         <p class="value user">{{task_user.progress_description}}</p>
                     </dd>
-                    <dd class="value value--none assigned_to" ng-if="!task.users || task.users.length == 0">
-                        Need Assignee
-                    </dd>
                     <dt class="key deadline">Deadline:</dt>
                     <dd class="value deadline" ng-if="task.deadline">{{task.deadline}}</dd>
                     <dd class="value value--none deadline" ng-if="!task.deadline">Not defined</dd>
