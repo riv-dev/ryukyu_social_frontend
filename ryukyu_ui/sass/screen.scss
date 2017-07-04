@@ -48,20 +48,22 @@ ol {
 //TITLE
 //Usually used for main section titles
 //E.g.
-//--------------(Section)
-//  (Section Header)
-//Projects List (title)
-//-----------------
+//--------(Section)-----------
+//     (Section Header)
+//Projects List (TITLE)
+//------(Section Info)--------
+//
+//  -----------------
 //  Manza 
 //     Assigned Users:
 //        - Ken
 //        - Bob
 //        - Joe
-//  ---------------
+//  ------------------
 //  Taiki Milk
-//  ---------------
+//  ------------------
 //  Fried Chicken
-//  ---------------
+//  ------------------
 .title {
     font-weight: bold;
     font-size: 24px;
@@ -71,22 +73,24 @@ ol {
 }
 
 //NAME
-//Usually used for names of each item in a list
+//Usually used for item names
 //E.g.
-//--------------(Section)
-//  (Section Header)
+//--------(Section)-----------
+//     (Section Header)
 //Projects List (title)
-//  ---------------
-//  Manza (name)
+//------(Section Info)--------
+//
+//  -----(item)-------
+//  Manza (NAME)
 //     Assigned Users:
 //        - Ken
 //        - Bob
 //        - Joe
-//  ---------------
-//  Taiki Milk (name)
-//  ---------------
-//  Fried Chicken (name)
-//  ---------------
+//  -----(item)-------
+//  Taiki Milk (NAME)
+//  -----(item)-------
+//  Fried Chicken (NAME)
+//  ------------------
 .name {
     font-weight: bold;
     font-size: 16px;
@@ -103,15 +107,35 @@ ol {
     font-size: 14px;
 }
 
+//ATTRIBUTES
+//Container for key-value pairs
+//E.g.
+//----(item)----
+//Task #12 (Name)
+//(Attributes)
+//Creator (key): Ken Le (value)
+//Deadline (key): Monday (value)
+//Project (key): Manza (value)
+.attributes {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+//KEY
 //The key in a key-value pair
 //Currently we want key value pairs to be display left/right
 //E.g.
-//Task 12 (Name)
-//--------------
-//Creator (Key): Ken Le (Value)
-//Deadline (Key): Monday (Value)
-//Project (Key): Manza (Value)
+//----(item)----
+//Task #12 (Name)
+//(Attributes)
+//Creator (KEY): Ken Le (Value)
+//Deadline (KEY): Monday (Value)
+//Project (KEY): Manza (Value)
 .key {
+    clear: left;
     float: left;
     font-size: 12px;
     font-weight: bold;
@@ -123,15 +147,19 @@ ol {
     color: #5e5e5e;    
 }
 
+//VALUE
 //The value in a key-value pair
 //E.g.
-//Task 12 (Name)
-//--------------
-//Creator (Key): Ken Le (Value)
-//Deadline (Key): Monday (Value)
-//Project (Key): Manza (Value)
+//-----(item)-------
+//Task #12 (Name)
+//Creator (Key): Ken Le (VALUE)
+//Deadline (Key): Monday (VALUE)
+//Project (Key): Manza (VALUE)
 .value {
+    clear: right;
+    float: left;
     font-size: 12px;
+    padding-left: 3px;
 }
 
 //Modifier for values that don't have a value
@@ -139,60 +167,60 @@ ol {
     color: red;
 }
 
-//If the value is a list, display the list below the key
-//E.g.
-//Task 12 (Name)
-//--------------
-//Assigned to (Key):
-//  (Value list)
-//  -Ken 
-//  -Bob 
-//  -Joe 
-//Creator (Key): Ken Le (Value)
-//Deadline (Key): Monday (Value)
-//Project (Key): Manza (Value)
-ol.value, ul.value, dl.value {
-    clear: left;
-    padding: 0px 10px 0px;
-}
-
-//Main list items, main information.  
-//E.g. 
-//Projects List (Section)
-//  -------------(item)
-//  Manza
-//  -------------(item)
-//  Taiki Milk 
-//  -------------(item)
-//  Fried Chicken
-//  ---------------
-.section_information .item {
-    display: block;
-    padding: 5px 5px 15px 5px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #c2c2c2;
-}
-
-//Sub list items, sub information.
-//Used for list items that are the values of a key within a main item.  
+//VALUE==MULTIPLE ITEMS
+//If the Value of a Key-Value pair ==  multiple items
 //E.g.
 //Projects List (Section)
 //  -------------(item)
 //  Manza (name)
+//     Description (key): About the Manza (value)
 //     Assigned Users (key):
-//       (value list)
-//        - Ken (value item)
-//        - Bob (value item)
-//        - Joe (value item)
+//        - Ken (VALUE_ITEM)
+//        - Bob (VALUE_ITEM)
+//        - Joe (VALUE_ITEM)
 //  -------------(item)
 //  Taiki Milk (name)
 //  -------------(item)
 //  Fried Chicken (name)
 //  ---------------
-.value .item {
-    margin-bottom: 5px;
-    padding: 0px;
+.value_item {
+    clear: left;
+    display: block;
+    padding-left: 10px;
     border-bottom: none;
+    font-size: 12px;
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+//SECTION_INFORMATION ITEM
+//Main list items, main information.  
+//E.g. 
+//--------(Section)-----------
+//     (Section Header)
+//Projects List (title)
+//------(Section Info)--------
+//
+//  -----(ITEM)-------
+//  Manza (name)
+//     Assigned Users:
+//        - Ken
+//        - Bob
+//        - Joe
+//  -----(ITEM)-------
+//  Taiki Milk (name)
+//  -----(ITEM)-------
+//  Fried Chicken (name)
+//  ------------------
+.section_information .item {
+    display: block;
+    padding: 5px 5px 15px 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #c2c2c2;
 }
 
 //Main sections of the website
@@ -237,6 +265,7 @@ ol.value, ul.value, dl.value {
     }
 
     .value {
+        float: none;
         display: block;
         font-size: 14px;
     }
