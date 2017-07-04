@@ -70,7 +70,9 @@ body * {
 
 //The footer section of the website, common in all pages
 #site_footer {
-
+    text-align: center;
+    font-size: 10px;
+    color: #5e5e5e;
 }
 
 //LOGO
@@ -321,7 +323,7 @@ body * {
 }
 
 //Customize sections
-#site_main--home {
+#site_main + .home-panel {
     #tasks_section {
         width: 30%;
     }
@@ -335,7 +337,7 @@ body * {
     }
 }
 
-#site_main--user {
+#site_main + .user-panel {
     #profile_section {
         width: 30%;
     }

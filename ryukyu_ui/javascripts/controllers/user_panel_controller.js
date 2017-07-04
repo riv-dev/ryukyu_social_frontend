@@ -1,6 +1,6 @@
 app.controller('userPanelController', function($scope, $http, $routeParams, $localStorage, CommonFunctions) {
     $scope.$parent.hero = "User Panel";
-    $scope.$parent.panel_modifier = "user";
+    $scope.$parent.panel_class = "user_panel";
 
     CommonFunctions.setFlashMessage($scope, $localStorage);
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
