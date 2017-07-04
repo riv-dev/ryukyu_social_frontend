@@ -5,6 +5,12 @@ app.controller('homePanelController', function($scope, $http, $localStorage, Com
     CommonFunctions.setFlashMessage($scope, $localStorage);
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
 
+    $scope.cssLast = function(isLast) {
+        if(isLast) {
+            return "last";
+        }
+    }
+
     if($localStorage.loggedin_user) {
         $http({
             method: 'GET',

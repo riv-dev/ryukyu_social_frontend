@@ -46,7 +46,6 @@ app.service('CommonFunctions', function() {
             delete localStorage.loggedin_user;
         }
     }
-
 });
 
 app.config(function($routeProvider, $locationProvider) {

@@ -68,92 +68,89 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* line 8, ../sass/screen.scss */
-body {
+body * {
   line-height: 1.0em;
   box-sizing: border-box;
 }
 
-/* line 14, ../sass/screen.scss */
-ol {
-  list-style: decimal;
-}
-
-/* line 29, ../sass/screen.scss */
+/* line 24, ../sass/screen.scss */
 #site_header {
   padding: 15px;
 }
 
-/* line 34, ../sass/screen.scss */
+/* line 29, ../sass/screen.scss */
 #site_nav {
   padding: 15px;
 }
 
-/* line 39, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 #site_main {
   padding: 15px;
 }
 
-/* line 67, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 .title {
   font-weight: bold;
   font-size: 24px;
-  margin-bottom: 15px;
   border-bottom: 1px solid black;
   padding-bottom: 5px;
 }
 
-/* line 94, ../sass/screen.scss */
+/* line 88, ../sass/screen.scss */
 .name {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 5px;
 }
 
-/* line 101, ../sass/screen.scss */
+/* line 95, ../sass/screen.scss */
 #projects_list .name {
   font-size: 20px;
 }
 
-/* line 106, ../sass/screen.scss */
+/* line 100, ../sass/screen.scss */
 .info {
   font-size: 14px;
+  margin-bottom: 5px;
 }
 
-/* line 120, ../sass/screen.scss */
+/* line 115, ../sass/screen.scss */
 .attributes:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 137, ../sass/screen.scss */
+/* line 132, ../sass/screen.scss */
 .key {
   clear: left;
   float: left;
   font-size: 12px;
   font-weight: bold;
   color: #383838;
+  margin-bottom: 3px;
 }
 
-/* line 146, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 .key--none {
   color: #5e5e5e;
 }
 
-/* line 158, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 .value {
   clear: right;
   float: left;
   font-size: 12px;
   padding-left: 3px;
+  margin-bottom: 3px;
 }
 
-/* line 166, ../sass/screen.scss */
+/* line 164, ../sass/screen.scss */
 .value--none {
   color: red;
 }
 
-/* line 186, ../sass/screen.scss */
+/* line 182, ../sass/screen.scss */
 .value_item {
   clear: left;
   display: block;
@@ -161,22 +158,26 @@ ol {
   border-bottom: none;
   font-size: 12px;
 }
-/* line 193, ../sass/screen.scss */
+/* line 189, ../sass/screen.scss */
 .value_item:after {
   content: "";
   display: table;
   clear: both;
 }
 
+/* line 196, ../sass/screen.scss */
+.value_item + .last {
+  margin-bottom: 5px;
+}
+
 /* line 219, ../sass/screen.scss */
 .section_information .item {
   display: block;
-  padding: 5px 5px 15px 5px;
-  margin-bottom: 10px;
+  padding: 10px 5px 10px;
   border-bottom: 1px solid #c2c2c2;
 }
 
-/* line 232, ../sass/screen.scss */
+/* line 231, ../sass/screen.scss */
 .section {
   float: left;
   width: 33.33%;
@@ -184,35 +185,35 @@ ol {
   box-sizing: border-box;
 }
 
-/* line 240, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 #tasks_section {
   width: 30%;
 }
 
-/* line 244, ../sass/screen.scss */
+/* line 243, ../sass/screen.scss */
 #projects_section {
   width: 40%;
 }
 
-/* line 248, ../sass/screen.scss */
+/* line 247, ../sass/screen.scss */
 #users_section {
   width: 30%;
 }
 
-/* line 252, ../sass/screen.scss */
+/* line 251, ../sass/screen.scss */
 #site_main:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 261, ../sass/screen.scss */
+/* line 260, ../sass/screen.scss */
 #users_list .key {
   float: none;
   display: block;
   font-size: 16px;
 }
-/* line 267, ../sass/screen.scss */
+/* line 266, ../sass/screen.scss */
 #users_list .value {
   float: none;
   display: block;
