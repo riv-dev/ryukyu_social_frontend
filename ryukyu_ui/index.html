@@ -10,17 +10,18 @@
   </head>
   <body>
       <header id="site_header">
-        <h1 class="title">Ryukyu Social: {{hero}}</h1>
-        <p class="status_msg" ng-if="login_status">{{login_status}}</p>
-        <p class="flash_msg" ng-if="flash_message">{{flash_message}}</p>
+        <h1 class="logo">Ryukyu Social</h1>
+        <p class="message hero">{{hero}}</h1>
+        <p class="message login_status" ng-if="login_status">{{login_status}}</p>
+        <p class="message flash" ng-if="flash_message">{{flash_message}}</p>
       </header>
       <nav id="site_nav">
         <ul class="links">
-          <li class="item"><a href=".">Home Panel</a></li>
+          <li class="item active"><a href=".">Home Panel</a></li>
           <li class="item"><a href="/users_service">User Management Service</a></li>
-          <li class="item"><a href="/user_photos_service">User Photos Service</li>
-          <li class="item"><a href="/projects_service">Projects Service</li>
-          <li class="item"><a href="/simple_tasks_service">Simple Tasks Service</li>
+          <li class="item"><a href="/user_photos_service">User Photos Service</a></li>
+          <li class="item"><a href="/projects_service">Projects Service</a></li>
+          <li class="item"><a href="/simple_tasks_service">Simple Tasks Service</a></li>
           <li class="item item--login" ng-if="!loggedin_user"><a href="/users_service/login">Log In</a></li>
           <li class="item item--logout" ng-if="loggedin_user"><a href="/users_service/logout">Log Out</a></li>
         </ul>

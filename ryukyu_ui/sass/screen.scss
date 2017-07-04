@@ -4,6 +4,7 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3";
 
 body * {
     line-height: 1.0em;
@@ -25,9 +26,41 @@ body * {
     padding: 15px;
 }
 
+
 //The navigation of the website, common in all pages
 #site_nav {
     padding: 15px;
+
+    .item {
+        display: inline-block;
+        border-right: 1px solid #c2c2c2;
+        padding: 0px 10px 0px;
+        font-size: 16px;
+
+        a {
+            @include transition(0.2s);
+            text-decoration: none;
+            color: blue;
+            &:visited {
+                color: blue;
+            }
+
+            &:hover {
+                font-size: 18px;
+            }
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.active {
+           a {
+            font-weight: bold;
+            text-decoration: underline;    
+           }
+        }
+    }
 }
 
 //The main section of the website, common in all pages
@@ -38,6 +71,20 @@ body * {
 //The footer section of the website, common in all pages
 #site_footer {
 
+}
+
+//LOGO
+//For main logos
+.logo {
+    color: #383838;
+    font-size: 36px;
+    padding-bottom: 10px;
+}
+
+//MESSAGE
+//For main messages to the user
+.message {
+    padding-left: 10px;
 }
 
 //TITLE
