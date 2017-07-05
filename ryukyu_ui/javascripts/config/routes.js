@@ -62,6 +62,10 @@ app.config(function($routeProvider, $locationProvider) {
   .when("/user-panel/:user_id", {
     templateUrl: "user_panel.html",
     controller: "userPanelController"
+  })
+  .when("/project-panel/:project_id", {
+    templateUrl: "project_panel.html",
+    controller: "projectPanelController"
   });
 
   // use the HTML5 History API

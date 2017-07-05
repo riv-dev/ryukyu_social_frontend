@@ -1,6 +1,6 @@
-app.controller('homePanelController', function($scope, $http, $localStorage, CommonFunctions) {
-    $scope.$parent.hero = "Home Panel";
-    $scope.$parent.panel_class = "home_panel";
+app.controller('projectPanelController', function($scope, $http, $routeParams, $localStorage, CommonFunctions) {
+    $scope.$parent.hero = "Project Panel";
+    $scope.$parent.panel_class = "project_panel";
 
     CommonFunctions.setFlashMessage($scope, $localStorage);
     CommonFunctions.checkLoggedInUser($scope, $localStorage);
@@ -12,34 +12,41 @@ app.controller('homePanelController', function($scope, $http, $localStorage, Com
     }
 
     if($localStorage.loggedin_user) {
-        //Get users list
+        //Get project information
         $http({
             method: 'GET',
-            url: usersApiBaseURL + '/users',
+            url: projectsApiBaseURL + '/projects/' + $routeParams.project_id,
+            headers: {
+                'x-access-token': CommonFunctions.getToken()
+            }
+        }).then(function (response) {
+            $scope.this_project = response.data;
+            $scope.this_project_photo = {};
+            $scope.this_project_photo.uri = "./images/default_project.png";
+            $scope.this_project_photo.caption = "Todo project photo microservice";
+        });
+
+
+        //Get the project's users
+        $http({
+            method: 'GET',
+            url: projectsApiBaseURL + '/projects/' + $routeParams.project_id + '/users',
             headers: {
                 'x-access-token': CommonFunctions.getToken()
             }
         }).then(function (response) {
             $scope.users = response.data;
-        });
-
-        //Get projects list
-        $http({
-            method: 'GET',
-            url: projectsApiBaseURL + '/projects',
-            headers: {
-                'x-access-token': CommonFunctions.getToken()
-            }
-        }).then(function (response) {
-            $scope.projects = response.data;
 
             for(var i=0;i<response.data.length;i++) {
-                var current_project = $scope.projects[i];
-                var current_project_id = current_project.id;
+                var current_user = $scope.users[i];
+                //When grabbing project users, the "id" field is not the user_id.
+                //"id" field is actually the id of the link between the project and the user
+                //Use the "user_id" field
+                var current_user_id = current_user.user_id;
 
                 $http({
                     method: 'GET',
-                    url: projectsApiBaseURL + '/projects/'+current_project_id+'/users',
+                    url: usersApiBaseURL + '/users/'+current_user_id,
                     headers: {
                         'x-access-token': CommonFunctions.getToken()
                     },
@@ -47,48 +54,16 @@ app.controller('homePanelController', function($scope, $http, $localStorage, Com
                         'i': i
                     }
                 }).then(function (response) {
-                    $scope.projects[parseInt(response.config["params"]["i"])]["users"] = response.data;
-
-                    for(var j=0;j<response.data.length;j++) {
-                        $http({
-                            method: 'GET',
-                            url: usersApiBaseURL + '/users/'+response.data[j]["user_id"],
-                            headers: {
-                                'x-access-token': CommonFunctions.getToken()
-                            },
-                            params: {
-                                'i': response.config["params"]["i"],
-                                'j': j
-                            }
-                        }).then(function (response) {
-                            var i = parseInt(response.config["params"]["i"]);
-                            var j = parseInt(response.config["params"]["j"]);
-                            $scope.projects[i]["users"][j].role = response.data.role;
-                            $scope.projects[i]["users"][j].firstname = response.data.firstname; 
-                            $scope.projects[i]["users"][j].lastname = response.data.lastname; 
-                        });                          
-                    }
-                });                    
-
-                $http({
-                    method: 'GET',
-                    url: tasksApiBaseURL + '/projects/'+current_project_id+'/tasks',
-                    headers: {
-                        'x-access-token': CommonFunctions.getToken()
-                    },
-                    params: {
-                        'i': i
-                    }
-                }).then(function (response) {
-                    $scope.projects[parseInt(response.config["params"]["i"])]["tasks"] = response.data;
+                    $scope.users[parseInt(response.config["params"]["i"])]["firstname"] = response.data.firstname;
+                    $scope.users[parseInt(response.config["params"]["i"])]["lastname"] = response.data.lastname;
                 });                    
             }
         });
 
-        //Get tasks list        
+        //Get the project's tasks
         $http({
             method: 'GET',
-            url: tasksApiBaseURL + '/tasks', //'/ranked-tasks',
+            url: tasksApiBaseURL + '/projects/' + $routeParams.project_id + '/tasks', //'/ranked-tasks',
             headers: {
                 'x-access-token': CommonFunctions.getToken()
             }
@@ -130,6 +105,10 @@ app.controller('homePanelController', function($scope, $http, $localStorage, Com
                     $scope.tasks[parseInt(response.config["params"]["i"])]["users"] = response.data
 
                     for(var j=0;j<response.data.length;j++) {
+                        if($routeParams.user_id == response.data[j]["user_id"]) {
+                            $scope.this_task_user = response.data[j];
+                        }
+
                         $http({
                             method: 'GET',
                             url: usersApiBaseURL + '/users/'+response.data[j]["user_id"],

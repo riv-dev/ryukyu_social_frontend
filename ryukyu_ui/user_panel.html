@@ -13,7 +13,7 @@
     </figure>
     <dl class="attributes">
         <dt class="key status">Status:</dt>
-        <dd class="value status">{{this_user.status}}<dd>
+        <dd class="value status">{{this_user.status}}</dd>
         <dt class="key bio">Bio:</dt>
         <dd class="value bio">{{this_user.bio}}</dd>
     </dl>
@@ -25,7 +25,7 @@
     </header>
     <ul id="tasks_list" class="section_information">
         <li class="item" ng-repeat="task in tasks">
-            <a href="/task-panel/{{task.id}}">
+            <a href="./task-panel/{{task.id}}">
                 <h3 class="name">{{task.name}}</h3>
                 <p class="info">
                     {{task.description}}
@@ -58,7 +58,7 @@
     </header>
     <ul id="projects_list" class="section_information">
         <li class="item" ng-repeat="project in projects">
-            <a href="/project-panel/{{project.project_id}}">
+            <a href="./project-panel/{{project.project_id}}">
                 <h3 class="name">{{project.name}}</h3>
                 <dl class="attributes">
                     <dt class="key users">Users:</dt>

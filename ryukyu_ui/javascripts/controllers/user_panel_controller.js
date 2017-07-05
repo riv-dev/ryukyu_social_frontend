@@ -49,7 +49,7 @@ app.controller('userPanelController', function($scope, $http, $routeParams, $loc
 
             for(var i=0;i<response.data.length;i++) {
                 var current_project = $scope.projects[i];
-                //When grabbing user's projects, the "id" field is not the correct project_id.
+                //When grabbing user's projects, the "id" field is not the project_id.
                 //"id" field is actually the id of the link between the user and the project.
                 //Use the "project_id" field
                 var current_project_id = current_project.project_id;

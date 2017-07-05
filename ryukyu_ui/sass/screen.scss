@@ -63,6 +63,44 @@ body * {
     }
 }
 
+#development_nav {
+    .title {
+        float: left;
+        font-size: 18px;
+        border-bottom: none;
+    }
+    .item {
+        display: inline-block;
+        border-right: 1px solid #c2c2c2;
+        padding: 0px 10px 0px;
+        font-size: 16px;
+
+        a {
+            @include transition(0.2s);
+            text-decoration: none;
+            color: blue;
+            &:visited {
+                color: blue;
+            }
+
+            &:hover {
+                font-size: 18px;
+            }
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.active {
+           a {
+            font-weight: bold;
+            text-decoration: underline;    
+           }
+        }
+    }
+}
+
 //The main section of the website, common in all pages
 #site_main {
     padding: 15px;
@@ -347,6 +385,20 @@ body * {
     }
 
     #projects_section {
+        width: 30%;
+    }
+}
+
+#site_main + .project-panel {
+    #profile_section {
+        width: 30%;
+    }
+
+    #tasks_section {
+        width: 40%;
+    }
+
+    #users_section {
         width: 30%;
     }
 }
