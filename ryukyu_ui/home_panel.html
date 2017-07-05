@@ -1,4 +1,7 @@
-<section id="tasks_section" class="section">
+<p ng-if="!loggedin_user" class="message main">Welcome to Ryukyu Social</p>
+<p ng-if="!loggedin_user" class="message main">Please <a href="./login">log in</a></p>
+
+<section ng-if="loggedin_user" id="tasks_section" class="section">
     <header class="section_header">
         <h2 class="title">Company Task Board</h2>
     </header>
@@ -30,7 +33,7 @@
     </ul>
 </section>
 
-<section id="projects_section" class="section">
+<section ng-if="loggedin_user" id="projects_section" class="section">
     <header class="section_header">
         <h2 class="title">Projects List</h2>
     </header>
@@ -58,7 +61,7 @@
     </ul>
 </section>
 
-<section id="users_section" class="section">
+<section ng-if="loggedin_user" id="users_section" class="section">
     <header class="section_header">
         <h2 class="title">Users List</h2>
     </header>

@@ -55,6 +55,14 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: "home_panel.html",
     controller: "homePanelController"
   })
+  .when("/login", {
+    templateUrl: "login.html",
+    controller: "loginController"
+  })
+  .when("/logout", {
+    templateUrl: "logout.html",
+    controller: "logoutController"
+  })
   .when("/home-panel", {
     templateUrl: "home_panel.html",
     controller: "homePanelController"
