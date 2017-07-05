@@ -417,19 +417,14 @@ body * {
     }
 }
 
-
-
-
 #site_main:after {
   content: "";
   display: table;
   clear: both;
 }
 
-
 //Customize users list
 #users_list {
-
     .key.user {
         float: none;
         display: block;

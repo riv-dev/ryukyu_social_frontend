@@ -65,6 +65,7 @@ app.controller('taskPanelController', function($scope, $http, $routeParams, $loc
                 }).then(function (response) {
                     $scope.users[parseInt(response.config["params"]["i"])]["firstname"] = response.data.firstname;
                     $scope.users[parseInt(response.config["params"]["i"])]["lastname"] = response.data.lastname;
+                    $scope.users[parseInt(response.config["params"]["i"])]["title"] = response.data.title;
                 });                    
             }
         });
