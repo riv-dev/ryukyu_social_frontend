@@ -187,6 +187,10 @@ body * {
 .info {
     font-size: 14px;
     margin-bottom: 5px;
+
+    &--none {
+        color: red;
+    }
 }
 
 //ATTRIBUTES
@@ -280,7 +284,7 @@ body * {
     }
 }
 
-.value_item + .last {
+.value_item.last {
     margin-bottom: 5px;
 }
 
@@ -361,7 +365,7 @@ body * {
 }
 
 //Customize sections
-#site_main + .home-panel {
+.home_panel {
     #tasks_section {
         width: 30%;
     }
@@ -375,33 +379,44 @@ body * {
     }
 }
 
-#site_main + .user-panel {
+.user_panel {
     #profile_section {
-        width: 30%;
+        width: 33.33%;
     }
 
     #tasks_section {
-        width: 40%;
+        width: 33.33%;
     }
 
     #projects_section {
-        width: 30%;
+        width: 33.33%;
     }
 }
 
-#site_main + .project-panel {
+.project_panel {
     #profile_section {
-        width: 30%;
+        width: 33.33%;
     }
 
     #tasks_section {
-        width: 40%;
+        width: 33.33%;
     }
 
     #users_section {
-        width: 30%;
+        width: 33.33%;
     }
 }
+
+.task_panel {
+    #task_details_section {
+        width: 67%;
+    }
+
+    #users_section {
+        width: 33%;
+    }
+}
+
 
 
 
@@ -414,21 +429,26 @@ body * {
 
 //Customize users list
 #users_list {
-    .key {
+
+    .key.user {
         float: none;
         display: block;
         font-size: 16px;
     }
 
-    .value {
+    .value.user {
         float: none;
         display: block;
         font-size: 14px;
     }
+
+    .progress_description {
+        margin-top: 10px;
+    }
 }
 
 //Customize profile section
-#profile_section {
+#profile_section, #task_details_section {
     .section_header {
         padding-bottom: 15px;
     }

@@ -29,7 +29,7 @@
 
 <section id="tasks_section" class="section">
     <header class="section_header">
-        <h2 class="title">Task Board</h2>
+        <h2 class="title">Project Task Board</h2>
     </header>
     <ul id="tasks_list" class="section_information">
         <li class="item" ng-repeat="task in tasks">
@@ -50,9 +50,6 @@
                     <dt class="key deadline">Deadline:</dt>
                     <dd class="value deadline" ng-if="task.deadline">{{task.deadline}}</dd>
                     <dd class="value value--none deadline" ng-if="!task.deadline">Not defined</dd>
-                    <dt class="key project">Project:</dt>
-                    <dd class="value project" ng-if="task.project_name">{{task.project_name}}</dd>
-                    <dd class="value value--none project" ng-if="!task.project_name">Not Assigned</dd>
                 </dl>
             </a>
         </li>
@@ -61,7 +58,7 @@
 
 <section id="users_section" class="section">
     <header class="section_header">
-        <h2 class="title">Users List</h2>
+        <h2 class="title">Users Assigned to Project</h2>
     </header>
     <ul id="users_list" class="section_information">
         <li class="item" ng-repeat="user in users">
