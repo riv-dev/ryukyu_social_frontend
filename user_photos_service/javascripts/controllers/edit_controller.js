@@ -18,7 +18,7 @@ app.controller('editController', function ($scope, $http, $routeParams, $locatio
                 method: 'PUT',
                 url: apiBaseURL + '/users/' + $routeParams.user_id + "/photo",
                 headers: {
-                    'x-access-token': $localStorage.token
+                    'x-access-token': CommonFunctions.getToken()
                 },
                 data: {
                     caption: $scope.caption

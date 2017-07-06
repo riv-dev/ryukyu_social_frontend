@@ -9,7 +9,7 @@ app.controller('listController', function($scope, $http, $localStorage, CommonFu
             method: 'GET',
             url: apiBaseURL + '/users',
             headers: {
-                'x-access-token': $localStorage.token
+                'x-access-token': CommonFunctions.getToken()
             }
         }).then(function (response) {
             $scope.users = response.data;

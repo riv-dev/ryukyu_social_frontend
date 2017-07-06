@@ -18,9 +18,21 @@ app.service('CommonFunctions', function() {
         }     
     };
 
+    this.setToken = function(token) {
+        window.localStorage.setItem("token", token);
+    }
+
+    this.getToken = function() {
+        return window.localStorage.getItem("token");
+    }
+
+    this.deleteToken = function() {
+        window.localStorage.removeItem("token");
+    }
+
     this.checkLoggedInUser = function(scope, localStorage) {
-        if(localStorage.token) {
-            var decodedToken = parseJwt(localStorage.token);
+        if(this.getToken()) {
+            var decodedToken = parseJwt(this.getToken());
             scope.$parent.login_status = "Logged in as: " + decodedToken.email;
             scope.$parent.loggedin_user = decodedToken;
             scope.loggedin_user = decodedToken;
@@ -32,6 +44,7 @@ app.service('CommonFunctions', function() {
             delete localStorage.loggedin_user;
         }
     }
+
 });
 
 app.config(function($routeProvider, $locationProvider) {
