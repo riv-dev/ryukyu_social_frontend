@@ -7,7 +7,9 @@
           <div class="md-subhead">All projects</div>
         </md-card-header-text>
         <md-button class="md-icon-button md-raised md-primary">
-          <md-icon>add</md-icon>
+          <router-link :to="{ path: '/new/project/' }" exact>
+            <md-icon>add</md-icon>
+          </router-link>
         </md-button>
       </md-card-header>
       <md-card-content v-for="project of projects" :key="project.id">

@@ -1,15 +1,13 @@
 <template>
   <md-layout md-gutter v-if="$route.params.task_id">
     <md-layout>
-    </md-layout>
-    <md-layout>
       <md-card>
         <md-card-header>
           <div class="md-title">{{tasks.name}}</div>
           <div class="md-subhead">{{ msg }}</div>
         </md-card-header>
         <md-card-content>
-          <form method="post" v-on:submit.prevent="updateTask">
+          <form>
             <md-input-container>
               <label>Name</label>
               <md-input v-model="tasks.name"></md-input>
@@ -46,10 +44,10 @@
             <div class="md-card-assign">
               <h2 class="md-title">Assigned Persons</h2>
 
-              <md-card-header v-for="usertask in usertasks" :key="usertask.user_id">
-                <md-card-header-text>
-                  <div class="md-title">
-                  </div>
+              <md-card-header v-for="(usertask, index) in usertasks" :key="index">
+
+                <md-card-header-text v-for="(user, index) in users" :key="index" v-if="usertask.user_id==user.id">
+                  <div class="md-title">{{user.firstname}} {{user.lastname}}</div>
                 </md-card-header-text>
                 <md-card-actions>
                   <md-button>View Progress Description</md-button>
@@ -59,68 +57,52 @@
               </md-card-header>
 
               <h2 class="md-title">Assign New Persons</h2>
-              <md-input-container>
-                <label for="userlist">Select user</label>
-                <md-select name="userlist" id="userlist">
-                  <md-option value="" v-for="user of users" :key="user.id">{{user.firstname}} {{user.lastname}}</md-option>
-                </md-select>
-              </md-input-container>
-
+              <div class="field-group">
+                <md-input-container>
+                  <label for="userlist">Select user</label>
+                  <md-select name="userlist" id="userlist" v-model="userlist">
+                    <md-option :value="user.id" v-for="user of users" :key="user.id">{{user.firstname}} {{user.lastname}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
             </div>
 
             <md-card-actions>
               <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user-tasks' })">back</md-button>
-              <md-button class="md-raised md-primary">Assign</md-button>
+              <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="assignTasktoUser">Assign</button>
             </md-card-actions>
 
           </form>
+          {{usertasks}}
+          <md-dialog-alert
+            :md-content="alert.content"
+            :md-ok-text="alert.ok"
+            ref="dialog3">
+          </md-dialog-alert>
         </md-card-content>
       </md-card>
-      {{tasks}}
-      <br>
-      <br> {{usertasks}}
-      <br>
-      <br>
-      {{JSON.stringify(users)}}
-
-      <br>
-
-    </md-layout>
-    <md-layout>
     </md-layout>
   </md-layout>
 
   <div v-else>
   </div>
 </template>
-<template>
-  <my-component inline-template>
-    <ul id="users-list">
-      <li v-for="user in users">{{user}}</li>
-      <li>{{usertasks}}</li>
-      <li v-for="usertask in usertasks"><span :text="fullName(usertask.user_id)">Lastname:{{last}}</span></li>
-      <li>Computed reversed message: {{ reversedMessage }}</li>
-      <li>
-        <div id="example">
-          <p>Original message: "{{ message }}"</p>
-          <p>Computed reversed message: "{{ lastname }}"</p>
-        </div>
-      </li>
-    </ul>
-  </my-component>
-</template>
 <script>
-import Vue from 'vue'
 import axios from 'axios'
 /* eslint-disable no-new */
+const config = { headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk4MTkwMDMwfQ.WXB6a-qMNpFJvTw0fdg56XsaoioEZSt25g4psajBQH8' } }
 export default {
-
   data: () => ({
     tasks: [],
     usertasks: [],
     users: [],
     errors: [],
-    msg: ' Info'
+    userlist: '',
+    msg: ' Infomation',
+    alert: {
+      content: 'Your has been assigned task!',
+      ok: 'OK!'
+    }
   }),
   created () {
     axios.get('https://ryukyu-social.cleverword.com/tasks_service/api/tasks/' + this.$route.params.task_id)
@@ -144,64 +126,33 @@ export default {
     .catch(e => {
       this.errors.push(e)
     })
-    this.getInfo()
+  },
+  computed: {
+    isDisabled () {
+      return true
+    }
   },
   methods: {
-    getInfo: function (id) {
-      axios.get('https://ryukyu-social.cleverword.com/users_service/api/users/' + id)
-      .then((response) => {
-        this.namename = response.data.lastname
-        // console.log(response.data)
-        return this.namename
+    assignTasktoUser: function () {
+      axios.post('https://ryukyu-social.cleverword.com/tasks_service/api/tasks/' + this.$route.params.task_id + '/users/' + this.userlist,
+        {
+          user_id: this.userlist,
+          progress_description: this.usertasks.progress_description
+        },
+        config
+      )
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.$refs['dialog3'].open()
       })
+      .then(function (response) {
+        console.log('saved', response)
+      })
+      .catch(errors => console.log(errors))
     }
   }
 }
 
-Vue.component('my-component', {
-  template: '#users-list',
-  props: ['lastname'],
-  data: function () {
-    return {
-      users: [],
-      usertasks: [],
-      userinfo: [],
-      message: 'Hello'
-    }
-  },
-  mounted: function () {
-    axios.get('https://ryukyu-social.cleverword.com/users_service/api/users/').then((response) => {
-      this.users = response.data
-    })
-    axios.get('https://ryukyu-social.cleverword.com/tasks_service/api/tasks/' + this.$route.params.task_id + '/users').then((response) => {
-      this.usertasks = response.data
-    })
-  },
-  methods: {
-    fullName: function (id) {
-      console.log(id)
-      axios.get('https://ryukyu-social.cleverword.com/users_service/api/users/' + id)
-      .then((response) => {
-        this.last = response.data.lastname
-        this.props('lastname', response.data.lastname)
-        // console.log(id)
-      })
-    }
-  }
-})
-
-new Vue({
-  data: {
-    message: 'Hello'
-  },
-  computed: {
-    // a computed getter
-    reversedMessage: function () {
-      // `this` points to the vm instance
-      return this.message.split('').reverse().join('')
-    }
-  }
-})
 </script>
 <style scoped>
 .md-button {
@@ -209,11 +160,19 @@ new Vue({
 }
 
 .md-card-assign .md-title {
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.md-card-assign .md-card .md-card-header {
+.md-card-assign .md-card-header .md-title {
+  text-transform: uppercase;
+}
+
+.md-card-assign .md-card-header {
   padding-left: 0px;
   padding-right: 0px;
+  border-bottom: solid 1px rgba(0,0,0,.12);
+}
+.md-card-assign .md-card-actions{
+  padding: 0px;
 }
 </style>

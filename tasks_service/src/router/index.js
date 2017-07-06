@@ -44,6 +44,10 @@ const routes = [
     component: editproject
   },
   {
+    path: '/new/project',
+    component: addnew
+  },
+  {
     path: '/edit/:task_id/task',
     name: 'edit',
     component: edit
