@@ -1,10 +1,11 @@
 <template>
-  <md-layout :md-gutter="16" v-if="$route.params.id">
-    <md-layout v-if="tasks && tasks.length">
+  <md-layout :md-gutter="16">
+    <md-layout v-if="usertasks && usertasks.length">
+      {{usertasks}}
       <md-table-card>
         <md-toolbar>
           <h1 class="md-title">{{ msg }} {{user.firstname}} {{user.lastname}}</h1>
-          <md-button class="md-icon-button">
+          <md-button class="md-icon-button md-raised md-primary">
             <md-icon>add</md-icon>
             <md-tooltip md-direction="top">New task for {{user.firstname}}</md-tooltip>
           </md-button>
@@ -18,32 +19,41 @@
         <md-table>
           <md-table-header>
             <md-table-row>
-              <md-table-head>Assigned to</md-table-head>
+              <md-table-head>Task ID</md-table-head>
+              <md-table-head>Task Name</md-table-head>
+              <md-table-head>Description</md-table-head>
+              <md-table-head>Priority</md-table-head>
+              <md-table-head>Status</md-table-head>
               <md-table-head>Deadline</md-table-head>
-              <md-table-head>Project</md-table-head>
-              <md-table-head>Progress Description</md-table-head>
-              <md-table-head>Detail</md-table-head>
+              <md-table-head>Assign</md-table-head>
+              <md-table-head>Edit task</md-table-head>
               <md-table-head>&nbsp;</md-table-head>
             </md-table-row>
           </md-table-header>
 
           <md-table-body>
-            <md-table-row v-for="task of tasks" :key="task.id">
+            <md-table-row v-for="task of usertasks" :key="task.id">
               <md-table-cell>
-                <span>{{user.firstname}} {{user.lastname}}</span>
-              </md-table-cell>
-              <md-table-cell>
-                <span>{{task.deadline}}</span>
+                <span>{{task.id}}</span>
               </md-table-cell>
               <md-table-cell>
                 <span>{{task.name}}</span>
               </md-table-cell>
               <md-table-cell>
-                <span>{{task.progress_description}}</span>
+                <span>{{task.description}}</span>
               </md-table-cell>
               <md-table-cell>
-                <router-link :to="'/show/tasks/'+ task.task_id">
-                  Detail this task
+                <span>{{task.priority}}</span>
+              </md-table-cell>
+              <md-table-cell>
+                <span>{{task.status}}</span>
+              </md-table-cell>
+              <md-table-cell>
+                <span>{{task.deadline}}</span>
+              </md-table-cell>
+              <md-table-cell>
+                <router-link :to="'/tasks/'+ task.task_id">
+                  Assign task
                 </router-link>
               </md-table-cell>
               <md-table-cell>
@@ -53,6 +63,8 @@
                     <md-tooltip md-direction="top">Edit Task</md-tooltip>
                   </router-link>
                 </md-button>
+              </md-table-cell>
+              <md-table-cell>
                 <md-button class="md-icon-button" @click.native="openDialog('dialog')">
                   <md-icon>delete</md-icon>
                   <md-tooltip md-direction="top">Delete Task</md-tooltip>
@@ -89,15 +101,13 @@
       ref="dialog">
     </md-dialog-confirm>
   </md-layout>
-  <div v-else>
-  </div>
 </template>
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 export default {
   data: () => ({
-    tasks: [],
+    usertasks: [],
     errors: [],
     user: [],
     msg: 'Tasks',
@@ -125,7 +135,7 @@ export default {
   created () {
     axios.get('https://ryukyu-social.cleverword.com/tasks_service/api/users/' + this.$route.params.id + '/tasks')
     .then(response => {
-      this.tasks = response.data
+      this.usertasks = response.data
     })
     .catch(e => {
       this.errors.push(e)

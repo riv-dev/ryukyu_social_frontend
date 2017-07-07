@@ -11,8 +11,10 @@
         <md-tooltip md-direction="top">New task</md-tooltip>
       </md-button>
       <md-button class="md-icon-button md-raised md-primary">
-        <md-icon>view_list</md-icon>
-        <md-tooltip md-direction="top">Vew task</md-tooltip>
+        <router-link :to="{path: '/project/'+ $route.params.project_id +'/tasks', name: 'project-tasks'}">
+          <md-icon>view_list</md-icon>
+          <md-tooltip md-direction="top">Vew task</md-tooltip>
+        </router-link>
       </md-button>
       <md-button class="md-icon-button md-raised md-primary" @click.native="openDialog('dialog5')">
         <md-icon>delete</md-icon>
@@ -92,7 +94,7 @@ export default {
     },
     displayDetails (id) {
       this.$router.push({
-        name: 'editproject',
+        name: 'edit-project',
         params: { id: this.$route.params.project_id }
       })
     }

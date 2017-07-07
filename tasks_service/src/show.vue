@@ -1,13 +1,12 @@
 <template>
   <main>
-    <detailtask></detailtask>
+    <component :is="this.$route.name"></component>
   </main>
 </template>
 <script>
-  import detailtask from '@/components/detail-task'
   export default {
     components: {
-      detailtask
+      'assign-task': require('@/components/assign-task')
     }
   }
 </script>

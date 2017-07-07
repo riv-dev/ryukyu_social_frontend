@@ -1,16 +1,14 @@
 <template>
   <main>
-    <editTask></editTask>
+    <component :is="this.$route.name"></component>
   </main>
 </template>
 <script>
-  import editTask from '@/components/edit-task'
-  import Modal from 'modal-vue'
   export default {
-    name: 'edit',
     components: {
-      editTask,
-      Modal
+      'edit-user': require('@/components/edit-user'),
+      'edit-project': require('@/components/edit-project'),
+      'edit-task': require('@/components/edit-task')
     }
   }
 </script>

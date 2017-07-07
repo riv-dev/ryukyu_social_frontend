@@ -1,53 +1,50 @@
 <template>
   <main>
-    <div v-if="$route.params.id">
-      <md-layout md-gutter>
-        <md-layout md-flex-xsmall="100" md-flex-small="40" md-flex-medium="40">
-        </md-layout>
-        <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="100">
-          <md-card>
-            <md-card-header>
-              <md-card-header-text>
-                <div class="md-title">{{userinfo.firstname}} {{ userinfo.lastname }}</div>
-                <div class="md-subhead">{{ msg }}</div>
-              </md-card-header-text>
-            </md-card-header>
-            <md-card-content>
-              <form>
-                <md-input-container>
-                  <label>Lastname</label>
-                  <md-input v-model="userinfo.lastname"></md-input>
-                </md-input-container>
-                <md-input-container>
-                  <label>Firstname</label>
-                  <md-input v-model="userinfo.firstname"></md-input>
-                </md-input-container>
-                <md-input-container>
-                  <label>Position</label>
-                  <md-input v-model="userinfo.title"></md-input>
-                </md-input-container>
-                <md-input-container>
-                  <label>Email</label>
-                  <md-input v-model="userinfo.email"></md-input>
-                </md-input-container>
-                <md-input-container>
-                  <label>Admin</label>
-                  <md-input v-model="userinfo.admin"></md-input>
-                </md-input-container>
-                <md-card-actions>
-                  <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user' })">back</md-button>
-                  <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="update">Update</button>
-                </md-card-actions>
-              </form>
-            </md-card-content>
-          </md-card>
-        </md-layout>
-        <md-layout md-flex-xsmall="100" md-flex-small="40" md-flex-medium="40">
-        </md-layout>
+    <md-layout md-gutter>
+      <md-layout md-flex-xsmall="100" md-flex-small="40" md-flex-medium="40">
       </md-layout>
-    </div>
-    <div v-else>
-    </div>
+      <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="100">
+        <md-card>
+          <md-card-header>
+            <md-card-header-text>
+              <div class="md-title">{{userinfo.firstname}} {{ userinfo.lastname }}</div>
+              <div class="md-subhead">{{ msg }}</div>
+            </md-card-header-text>
+          </md-card-header>
+          <md-card-content>
+            <form>
+              <md-input-container>
+                <label>Lastname</label>
+                <md-input v-model="userinfo.lastname"></md-input>
+              </md-input-container>
+              <md-input-container>
+                <label>Firstname</label>
+                <md-input v-model="userinfo.firstname"></md-input>
+              </md-input-container>
+              <md-input-container>
+                <label>Position</label>
+                <md-input v-model="userinfo.title"></md-input>
+              </md-input-container>
+              <md-input-container>
+                <label>Email</label>
+                <md-input v-model="userinfo.email"></md-input>
+              </md-input-container>
+              <md-input-container>
+                <label>Admin</label>
+                <md-input v-model="userinfo.admin"></md-input>
+              </md-input-container>
+              <md-card-actions>
+                <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user-info' })">back</md-button>
+                <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="update">Update</button>
+              </md-card-actions>
+            </form>
+          </md-card-content>
+        </md-card>
+      </md-layout>
+      <md-layout md-flex-xsmall="100" md-flex-small="40" md-flex-medium="40">
+      </md-layout>
+    </md-layout>
+
     <md-dialog-alert
       :md-content="alert.content"
       :md-ok-text="alert.ok"

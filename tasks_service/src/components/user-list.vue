@@ -28,6 +28,10 @@
             <md-button>
               <router-link :to="'/user/'+ user.id +'/tasks'">View tasks</router-link>
             </md-button>
+            <md-button class="md-icon-button" @click.native="openDialog('dialog')">
+              <md-icon>delete</md-icon>
+              <md-tooltip md-direction="top">Delete User</md-tooltip>
+            </md-button>
             <md-divider class="md-inset"></md-divider>
           </md-list-item>
         </md-list>

@@ -1,45 +1,44 @@
 <template>
   <md-layout md-gutter>
-    {{usertasks}}
     <md-layout>
       <md-card>
         <md-card-header>
-          <div class="md-title">{{tasks.name}} - Edit</div>
+          <div class="md-title">{{tasks.name}} - Assign</div>
           <div class="md-subhead">{{ msg }}</div>
         </md-card-header>
         <md-card-content>
           <form>
             <md-input-container>
               <label>Name</label>
-              <md-input v-model="tasks.name"></md-input>
+              <md-input v-model="tasks.name" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Description</label>
-              <md-input v-model="tasks.description"></md-input>
+              <md-input v-model="tasks.description" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Priority</label>
-              <md-input v-model="tasks.priority"></md-input>
+              <md-input v-model="tasks.priority" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Status</label>
-              <md-input v-model="tasks.status"></md-input>
+              <md-input v-model="tasks.status" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Deadline</label>
-              <md-input v-model="tasks.deadline"></md-input>
+              <md-input v-model="tasks.deadline" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Project ID</label>
-              <md-input v-model="tasks.project_id"></md-input>
+              <md-input v-model="tasks.project_id" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Creator user ID</label>
-              <md-input v-model="tasks.creator_user_id"></md-input>
+              <md-input v-model="tasks.creator_user_id" disabled></md-input>
             </md-input-container>
             <md-input-container>
               <label>Parent task ID</label>
-              <md-input v-model="tasks.parent_task_id"></md-input>
+              <md-input v-model="tasks.parent_task_id" disabled></md-input>
             </md-input-container>
 
             <div class="md-card-assign">
@@ -56,11 +55,21 @@
                   <md-button>Remove Person from Task</md-button>
                 </md-card-actions>
               </md-card-header>
+
+              <h2 class="md-title">Assign New Persons</h2>
+              <div class="field-group">
+                <md-input-container>
+                  <label for="userlist">Select user</label>
+                  <md-select name="userlist" id="userlist" v-model="userlist">
+                    <md-option :value="user.id" v-for="user of users" :key="user.id">{{user.firstname}} {{user.lastname}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
             </div>
 
             <md-card-actions>
               <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user-tasks' })">back</md-button>
-              <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="updateTask">Update</button>
+              <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="assignTasktoUser">Assign</button>
             </md-card-actions>
 
           </form>
@@ -85,7 +94,7 @@ export default {
     users: [],
     errors: [],
     userlist: '',
-    msg: 'Edit Infomation',
+    msg: 'Assign Infomation',
     alert: {
       content: 'Your has been assigned task!',
       ok: 'OK!'
@@ -120,7 +129,7 @@ export default {
     }
   },
   methods: {
-    updateTask: function () {
+    assignTasktoUser: function () {
       axios.post('https://ryukyu-social.cleverword.com/tasks_service/api/tasks/' + this.$route.params.task_id + '/users/' + this.userlist,
         {
           user_id: this.userlist,

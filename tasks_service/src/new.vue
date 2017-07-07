@@ -1,19 +1,14 @@
 <template>
   <main>
-    <newuser></newuser>
-    <newtask></newtask>
-    <newproject></newproject>
+    <component :is="this.$route.name"></component>
   </main>
 </template>
 <script>
-  import newuser from '@/components/new-user'
-  import newtask from '@/components/new-task'
-  import newproject from '@/components/new-project'
   export default {
     components: {
-      newuser,
-      newtask,
-      newproject
+      'new-user': require('@/components/new-user'),
+      'new-project': require('@/components/new-project'),
+      'new-task': require('@/components/new-task')
     }
   }
 </script>

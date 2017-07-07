@@ -1,5 +1,5 @@
 <template>
-  <md-layout md-gutter v-if="$route.params.task_id">
+  <md-layout md-gutter>
     <md-layout>
     </md-layout>
     <md-layout>
@@ -50,8 +50,6 @@
     <md-layout>
     </md-layout>
   </md-layout>
-  <div v-else>
-  </div>
 </template>
 <script>
 import axios from 'axios'

@@ -5,8 +5,6 @@ import home from '@/home'
 import edit from '@/edit'
 import show from '@/show'
 import addnew from '@/new'
-import edituser from '@/components/edit-user'
-import editproject from '@/components/edit-project'
 Vue.use(Router)
 const routes = [
   {
@@ -15,7 +13,7 @@ const routes = [
   },
   {
     path: '/user/:user_id',
-    name: 'user',
+    name: 'user-info',
     component: list
   },
   {
@@ -24,40 +22,43 @@ const routes = [
     component: list
   },
   {
-    path: '/user/:user_id/edit',
-    name: 'edituser',
-    component: edituser
+    path: '/edit/:user_id/user',
+    name: 'edit-user',
+    component: edit
   },
   {
     path: '/project/:project_id',
-    name: 'project',
+    name: 'project-info',
     component: list
   },
   {
     path: '/project/:project_id/tasks',
-    name: 'project-task',
+    name: 'project-tasks',
     component: list
   },
   {
-    path: '/project/:project_id/edit',
-    name: 'editproject',
-    component: editproject
+    path: '/edit/:project_id/project',
+    name: 'edit-project',
+    component: edit
   },
   {
     path: '/new/project',
+    name: 'new-project',
     component: addnew
   },
   {
     path: '/edit/:task_id/task',
-    name: 'edit',
+    name: 'edit-task',
     component: edit
   },
   {
-    path: '/show/tasks/:task_id',
+    path: '/tasks/:task_id',
+    name: 'assign-task',
     component: show
   },
   {
     path: '/new/user',
+    name: 'new-user',
     component: addnew
   }
 ]

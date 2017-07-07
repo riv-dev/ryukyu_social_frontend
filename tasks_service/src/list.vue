@@ -1,22 +1,15 @@
 <template>
   <main>
-    <userinfo></userinfo>
-    <usertasks></usertasks>
-    <projectinfo></projectinfo>
-    <projecttask></projecttask>
+    <component :is="this.$route.name"></component>
   </main>
 </template>
 <script>
-  import userinfo from '@/components/user-info'
-  import usertasks from '@/components/user-tasks'
-  import projectinfo from '@/components/project-info'
-  import projecttask from '@/components/project-task'
   export default {
     components: {
-      userinfo,
-      usertasks,
-      projectinfo,
-      projecttask
+      'user-info': require('@/components/user-info'),
+      'project-info': require('@/components/project-info'),
+      'user-tasks': require('@/components/user-tasks'),
+      'project-tasks': require('@/components/project-tasks')
     }
   }
 </script>
