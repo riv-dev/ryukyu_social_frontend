@@ -43,7 +43,7 @@
                   <md-input v-model="projectinfo.start_date"></md-input>
                 </md-input-container>
                 <md-card-actions>
-                  <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'project' })">back</md-button>
+                  <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'project-info' })">back</md-button>
                   <button class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="update">Update</button>
                 </md-card-actions>
               </form>
@@ -83,7 +83,11 @@ export default {
         {
           name: this.projectinfo.name,
           description: this.projectinfo.description,
-          value: this.projectinfo.value
+          value: this.projectinfo.value,
+          effort: this.projectinfo.effort,
+          status: this.projectinfo.status,
+          deadline: this.projectinfo.deadline,
+          start_date: this.projectinfo.start_date
         },
         config
       )

@@ -7,39 +7,43 @@
         <md-card>
           <md-card-header>
             <md-card-header-text>
-              <div class="md-title">{{ msg }}</div>
+              <div class="md-title">{{msg}}</div>
               <div class="md-subhead">Fill input field</div>
             </md-card-header-text>
           </md-card-header>
           <md-card-content>
             <form>
               <md-input-container>
-                <label>Lastname</label>
-                <md-input v-model="usernew.lastname"></md-input>
+                <label>Project Name</label>
+                <md-input v-model="newproject.name"></md-input>
               </md-input-container>
               <md-input-container>
-                <label>Firstname</label>
-                <md-input v-model="usernew.firstname"></md-input>
+                <label>Description</label>
+                <md-textarea v-model="newproject.description"></md-textarea>
               </md-input-container>
               <md-input-container>
-                <label>Title</label>
-                <md-input v-model="usernew.title"></md-input>
+                <label>Value</label>
+                <md-input v-model="newproject.value"></md-input>
               </md-input-container>
               <md-input-container>
-                <label>Email</label>
-                <md-input v-model="usernew.email"></md-input>
+                <label>Effort</label>
+                <md-input v-model="newproject.effort"></md-input>
               </md-input-container>
               <md-input-container>
-                <label>Admin</label>
-                <md-input v-model="usernew.admin"></md-input>
+                <label>Status</label>
+                <md-input v-model="newproject.status"></md-input>
               </md-input-container>
-              <md-input-container md-has-password>
-                <label>Password</label>
-                <md-input type="password" v-model="usernew.password"></md-input>
+              <md-input-container>
+                <label>Deadline</label>
+                <md-input v-model="newproject.deadline"></md-input>
+              </md-input-container>
+              <md-input-container>
+                <label>Start date</label>
+                <md-input v-model="newproject.start_date"></md-input>
               </md-input-container>
               <md-card-actions>
-                <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user' })">back</md-button>
-                <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="addNewUser">Add New</button>
+                <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'project' })">back</md-button>
+                <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="addNewProject">New Project</button>
               </md-card-actions>
             </form>
           </md-card-content>
@@ -48,7 +52,6 @@
       <md-layout md-flex-xsmall="100" md-flex-small="40" md-flex-medium="40">
       </md-layout>
     </md-layout>
-
     <md-dialog-alert
       :md-content="alert.content"
       :md-ok-text="alert.ok"
@@ -62,30 +65,29 @@ import axios from 'axios'
 const config = { headers: { 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGFzdG5hbWUiOiJBZG1pbiIsImZpcnN0bmFtZSI6IlJvb3QiLCJ0aXRsZSI6IkRlZmF1bHQgVXNlciIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaGFzaGVkX3Bhc3N3b3JkIjpudWxsLCJhZG1pbiI6MSwiaWF0IjoxNDk4MTkwMDMwfQ.WXB6a-qMNpFJvTw0fdg56XsaoioEZSt25g4psajBQH8' } }
 export default {
   data: () => ({
-    usernew: [],
+    newproject: [],
     errors: [],
     msg: 'New Project',
     alert: {
-      content: 'Your has been Add new project!',
+      content: 'Project has been Add new!',
       ok: 'OK!'
     }
   }),
   methods: {
-    addNewUser: function () {
-      // var data = this.users
-      axios.post('https://ryukyu-social.cleverword.com/users_service/api/users/',
+    addNewProject: function () {
+      axios.post('https://ryukyu-social.cleverword.com/projects_service/api/projects/',
         {
-          firstname: this.usernew.firstname,
-          lastname: this.usernew.lastname,
-          title: this.usernew.title,
-          email: this.usernew.email,
-          admin: this.usernew.admin,
-          password: this.usernew.password
+          name: this.newproject.name,
+          description: this.newproject.description,
+          value: this.newproject.value,
+          effort: this.newproject.effort,
+          status: this.newproject.status,
+          deadline: this.newproject.deadline,
+          start_date: this.newproject.start_date
         },
         config
       )
       .then(response => {
-        // JSON responses are automatically parsed.
         this.$refs['dialog3'].open()
       })
       .then(function (response) {

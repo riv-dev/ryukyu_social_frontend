@@ -1,86 +1,84 @@
 <template>
   <md-layout md-gutter>
-    <md-layout>
-      <md-card>
-        <md-card-header>
-          <div class="md-title">{{tasks.name}} - Assign</div>
-          <div class="md-subhead">{{ msg }}</div>
-        </md-card-header>
-        <md-card-content>
-          <form>
-            <md-input-container>
-              <label>Name</label>
-              <md-input v-model="tasks.name" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Description</label>
-              <md-input v-model="tasks.description" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Priority</label>
-              <md-input v-model="tasks.priority" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Status</label>
-              <md-input v-model="tasks.status" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Deadline</label>
-              <md-input v-model="tasks.deadline" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Project ID</label>
-              <md-input v-model="tasks.project_id" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Creator user ID</label>
-              <md-input v-model="tasks.creator_user_id" disabled></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Parent task ID</label>
-              <md-input v-model="tasks.parent_task_id" disabled></md-input>
-            </md-input-container>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">{{tasks.name}} - Assign</div>
+        <div class="md-subhead">{{ msg }}</div>
+      </md-card-header>
+      <md-card-content>
+        <form>
+          <md-input-container>
+            <label>Name</label>
+            <md-input v-model="tasks.name" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Description</label>
+            <md-input v-model="tasks.description" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Priority</label>
+            <md-input v-model="tasks.priority" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Status</label>
+            <md-input v-model="tasks.status" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Deadline</label>
+            <md-input v-model="tasks.deadline" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Project ID</label>
+            <md-input v-model="tasks.project_id" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Creator user ID</label>
+            <md-input v-model="tasks.creator_user_id" disabled></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>Parent task ID</label>
+            <md-input v-model="tasks.parent_task_id" disabled></md-input>
+          </md-input-container>
 
-            <div class="md-card-assign">
-              <h2 class="md-title">Assigned Persons</h2>
+          <div class="md-card-assign">
+            <h2 class="md-title">Assigned Persons</h2>
 
-              <md-card-header v-for="(usertask, index) in usertasks" :key="index">
+            <md-card-header v-for="(usertask, index) in usertasks" :key="index">
 
-                <md-card-header-text v-for="(user, index) in users" :key="index" v-if="usertask.user_id==user.id">
-                  <div class="md-title">{{user.firstname}} {{user.lastname}}</div>
-                </md-card-header-text>
-                <md-card-actions>
-                  <md-button>View Progress Description</md-button>
-                  <md-button>Edit Progress Description</md-button>
-                  <md-button>Remove Person from Task</md-button>
-                </md-card-actions>
-              </md-card-header>
+              <md-card-header-text v-for="(user, index) in users" :key="index" v-if="usertask.user_id==user.id">
+                <div class="md-title">{{user.firstname}} {{user.lastname}}</div>
+              </md-card-header-text>
+              <md-card-actions>
+                <md-button>View Progress Description</md-button>
+                <md-button class="md-primary">Edit Progress Description</md-button>
+                <md-button class="md-accent">Remove Person from Task</md-button>
+              </md-card-actions>
+            </md-card-header>
 
-              <h2 class="md-title">Assign New Persons</h2>
-              <div class="field-group">
-                <md-input-container>
-                  <label for="userlist">Select user</label>
-                  <md-select name="userlist" id="userlist" v-model="userlist">
-                    <md-option :value="user.id" v-for="user of users" :key="user.id">{{user.firstname}} {{user.lastname}}</md-option>
-                  </md-select>
-                </md-input-container>
-              </div>
+            <h2 class="md-title">Assign New Persons</h2>
+            <div class="field-group">
+              <md-input-container>
+                <label for="userlist">Select user</label>
+                <md-select name="userlist" id="userlist" v-model="userlist">
+                  <md-option :value="user.id" v-for="user of users" :key="user.id">{{user.firstname}} {{user.lastname}}</md-option>
+                </md-select>
+              </md-input-container>
             </div>
+          </div>
 
-            <md-card-actions>
-              <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user-tasks' })">back</md-button>
-              <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="assignTasktoUser">Assign</button>
-            </md-card-actions>
+          <md-card-actions>
+            <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user-tasks' })">back</md-button>
+            <button class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="assignTasktoUser">Assign</button>
+          </md-card-actions>
 
-          </form>
-          <md-dialog-alert
-            :md-content="alert.content"
-            :md-ok-text="alert.ok"
-            ref="dialog3">
-          </md-dialog-alert>
-        </md-card-content>
-      </md-card>
-    </md-layout>
+        </form>
+        <md-dialog-alert
+          :md-content="alert.content"
+          :md-ok-text="alert.ok"
+          ref="dialog3">
+        </md-dialog-alert>
+      </md-card-content>
+    </md-card>
   </md-layout>
 </template>
 <script>

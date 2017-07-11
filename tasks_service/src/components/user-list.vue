@@ -1,5 +1,5 @@
 <template>
-  <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="50">
+  <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="50" md-flex-large="50">
     <md-card v-if="users && users.length">
       <md-card-header>
         <md-card-header-text>
@@ -27,10 +27,6 @@
             </md-button>
             <md-button>
               <router-link :to="'/user/'+ user.id +'/tasks'">View tasks</router-link>
-            </md-button>
-            <md-button class="md-icon-button" @click.native="openDialog('dialog')">
-              <md-icon>delete</md-icon>
-              <md-tooltip md-direction="top">Delete User</md-tooltip>
             </md-button>
             <md-divider class="md-inset"></md-divider>
           </md-list-item>

@@ -22,7 +22,7 @@
                 <md-input v-model="userinfo.firstname"></md-input>
               </md-input-container>
               <md-input-container>
-                <label>Position</label>
+                <label>Title</label>
                 <md-input v-model="userinfo.title"></md-input>
               </md-input-container>
               <md-input-container>
@@ -73,7 +73,9 @@ export default {
         {
           firstName: this.userinfo.firstname,
           lastName: this.userinfo.lastname,
-          title: this.userinfo.title
+          title: this.userinfo.title,
+          email: this.userinfo.email,
+          admin: this.userinfo.admin
         },
         config
       )

@@ -9,7 +9,7 @@
         </md-toolbar>
         <md-card-content>
 
-          <form method="post" v-on:submit.prevent="updateTask">
+          <form>
             <md-input-container>
               <label>Name</label>
               <md-input v-model="tasks.name"></md-input>

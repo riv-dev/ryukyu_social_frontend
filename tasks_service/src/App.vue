@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-cloak>
     <router-header></router-header>
     <router-view></router-view>
     <router-footer></router-footer>
@@ -43,4 +43,12 @@ a:hover{
 .md-button a .md-icon,.md-button a:hover .md-icon{
   color: #ffffff;
 }
+.md-button.md-icon-button .md-icon{
+  top: 0px;
+}
+.md-card-content .md-input-disabled .md-input{
+  color: #000000 !important;
+}
+[v-cloak] > * { display:none; }
+[v-cloak]:before { content: "loading…" }
 </style>

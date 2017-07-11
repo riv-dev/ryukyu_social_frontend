@@ -1,13 +1,20 @@
 <template>
   <md-layout :md-gutter="16">
     <md-layout v-if="usertasks && usertasks.length">
-      {{usertasks}}
       <md-table-card>
         <md-toolbar>
           <h1 class="md-title">{{ msg }} {{user.firstname}} {{user.lastname}}</h1>
           <md-button class="md-icon-button md-raised md-primary">
-            <md-icon>add</md-icon>
-            <md-tooltip md-direction="top">New task for {{user.firstname}}</md-tooltip>
+            <router-link :to="{ path: '/user/' + $route.params.id }" exact>
+              <md-icon>info</md-icon>
+              <md-tooltip md-direction="top">Info {{user.firstname}} {{user.lastname}}</md-tooltip>
+            </router-link>
+          </md-button>
+          <md-button class="md-icon-button md-raised md-primary">
+            <router-link :to="{ path: '/users/' + $route.params.id + '/tasks/new' }" exact>
+              <md-icon>add</md-icon>
+              <md-tooltip md-direction="top">New task for {{user.firstname}}</md-tooltip>
+            </router-link>
           </md-button>
           <md-button class="md-icon-button">
             <md-icon>filter_list</md-icon>
@@ -26,7 +33,6 @@
               <md-table-head>Status</md-table-head>
               <md-table-head>Deadline</md-table-head>
               <md-table-head>Assign</md-table-head>
-              <md-table-head>Edit task</md-table-head>
               <md-table-head>&nbsp;</md-table-head>
             </md-table-row>
           </md-table-header>
@@ -53,18 +59,16 @@
               </md-table-cell>
               <md-table-cell>
                 <router-link :to="'/tasks/'+ task.task_id">
-                  Assign task
+                  <md-chip md-editable>Assign task</md-chip>
                 </router-link>
               </md-table-cell>
               <md-table-cell>
                 <md-button class="md-icon-button">
-                  <router-link :to="'/edit/'+ task.id +'/task'">
+                  <router-link :to="'/edit/'+ task.task_id +'/task'">
                     <md-icon>edit</md-icon>
                     <md-tooltip md-direction="top">Edit Task</md-tooltip>
                   </router-link>
                 </md-button>
-              </md-table-cell>
-              <md-table-cell>
                 <md-button class="md-icon-button" @click.native="openDialog('dialog')">
                   <md-icon>delete</md-icon>
                   <md-tooltip md-direction="top">Delete Task</md-tooltip>

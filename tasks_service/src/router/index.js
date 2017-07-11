@@ -37,6 +37,16 @@ const routes = [
     component: list
   },
   {
+    path: '/projects/:project_id/tasks/new',
+    name: 'project-new-task',
+    component: addnew
+  },
+  {
+    path: '/users/:user_id/tasks/new',
+    name: 'user-new-task',
+    component: addnew
+  },
+  {
     path: '/edit/:project_id/project',
     name: 'edit-project',
     component: edit

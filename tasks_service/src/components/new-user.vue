@@ -39,7 +39,7 @@
               </md-input-container>
               <md-card-actions>
                 <md-button class="md-raised md-primary" @click.native="$router.push({ name: 'user' })">back</md-button>
-                <button  class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="addNewUser">Add New</button>
+                <button class="md-button md-raised md-primary md-theme-default" type="submit" name="button" v-on:click.prevent="addNewUser">New User</button>
               </md-card-actions>
             </form>
           </md-card-content>
